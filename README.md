@@ -1,0 +1,16 @@
+# Module 2 - Programming in HPC
+
+This module moves from using the cluster to programming for it. Day 1 focuses on parallelism, hardware limits, and performance models. Day 2 introduces OpenMP multithreading and synchronization. Day 3 covers AMD GPU programming with ROCm/HIP. Day 4 moves into GPU libraries and profiling. Day 5 teaches OpenMP tasks and target offload. Day 6 introduces MPI and distributed-memory parallelism.
+
+**What You Will Learn**
+
+- How to reason about strong and weak scaling, Amdahl's law, Gustafson's law, and Roofline
+- How to inspect NUMA, PCIe, memory, and GPU topology with common Linux tools
+- How to write OpenMP programs with `parallel`, `for`, synchronization, locks, critical sections, scheduling, tasks, and target offload
+- How to write basic HIP programs, use shared memory, and reason about CUDA vs. HIP
+- How to use ROCm libraries, tracing tools, and Roofline-style thinking
+- How to use MPI for collectives, topologies, and GPU-aware communication
+
+**Lesson Overview**
+
+- [01-parallelism-concepts](01-parallelism-concepts/README.md): scaling concepts, HPC architecture, inspection tools, C/C++, Python, and Roofline.

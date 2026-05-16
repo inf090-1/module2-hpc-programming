@@ -1,0 +1,31 @@
+# Generated binaries from course makefiles
+*/examples/*_reference
+!*/examples/*_reference.c
+!*/examples/*_reference.cpp
+!*/examples/*_reference.py
+!*/examples/*_reference.sh
+
+*/exercises/exercise_*
+!*/exercises/exercise_*.c
+!*/exercises/exercise_*.cpp
+!*/exercises/exercise_*.py
+!*/exercises/exercise_*.sh
+
+*/exercises/solution/exercise_*
+!*/exercises/solution/exercise_*.c
+!*/exercises/solution/exercise_*.cpp
+!*/exercises/solution/exercise_*.py
+!*/exercises/solution/exercise_*.sh
+
+# Generic build artifacts
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dll
+*.dylib
+
+# Virtual env
+venv
+.venv
