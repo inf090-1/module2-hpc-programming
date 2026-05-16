@@ -1,0 +1,13 @@
+Threads,Program,ScalingType,Time
+1,compute_heavy,strong,6.760695
+1,compute_heavy,weak,1.748735
+1,memory_bound,strong,0.140660
+1,memory_bound,weak,0.146061
+2,compute_heavy,strong,3.386331
+2,compute_heavy,weak,1.702821
+2,memory_bound,strong,0.115181
+2,memory_bound,weak,0.227067
+4,compute_heavy,strong,1.716335
+4,compute_heavy,weak,1.714456
+4,memory_bound,strong,0.092831
+4,memory_bound,weak,0.372175
