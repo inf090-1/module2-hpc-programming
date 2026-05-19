@@ -2,15 +2,18 @@
 #include <stdlib.h>
 #include <omp.h>
 
-// TODO: Implement a reduction-based sum of cubes.
+// Solution: Implement a reduction-based sum of cubes.
 // Compute sum_{i=0..n-1} (a[i]^3)
 long long parallel_sum_cubes(const int *a, int n) {
-    // TODO: Use #pragma omp parallel for with reduction(+:sum)
-    // TODO: Accumulate a[i]^3 for each element
-    // Hint: Initialize sum = 0, then add (long long)a[i]*a[i]*a[i] in loop
-    (void)a;
-    (void)n;
-    return 0;
+    long long sum = 0;
+
+    #pragma omp parallel for reduction(+:sum)
+    for (int i = 0; i < n; i++) {
+        const long long v = (long long)a[i];
+        sum += v * v * v;
+    }
+
+    return sum;
 }
 
 int main(void) {

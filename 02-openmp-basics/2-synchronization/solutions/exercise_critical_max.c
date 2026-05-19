@@ -1,12 +1,25 @@
 #include <stdio.h>
 #include <omp.h>
 
-// TODO: Find the maximum value in the array.
+// Solution: Find the maximum value in the array.
 // Hint: use #pragma omp critical to protect the shared maximum update.
 int parallel_max(const int *values, int n) {
-    (void)values;
-    (void)n;
-    return 0;
+    int max_val = values[0];
+
+    #pragma omp parallel for
+    for (int i = 0; i < n; i++) {
+        const int v = values[i];
+
+        // Protect update of the shared max.
+        #pragma omp critical
+        {
+            if (v > max_val) {
+                max_val = v;
+            }
+        }
+    }
+
+    return max_val;
 }
 
 int main(void) {

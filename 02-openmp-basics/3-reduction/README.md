@@ -9,8 +9,9 @@ This lesson introduces the OpenMP `reduction` clause, used to efficiently aggreg
 ## Exercises & Examples
 - `examples/reduction_reference.c`: Example of reduction operations.
 - `exercises/exercise_reduction.c`: Practice implementing reductions.
+- `solutions/exercise_reduction.c`: Reference solution.
 
-## Compilation and Execution on the INFO090 Cluster
+## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash

@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <omp.h>
 
-// TODO: Add a loop schedule clause that fits irregular work.
+// Solution: Add a loop schedule clause that fits irregular work.
 // Hint: schedule(guided, 4) is a good starting point.
 void simulate_irregular_work(int *owner, int n) {
-    #pragma omp parallel for
+    #pragma omp parallel for schedule(guided, 4)
     for (int i = 0; i < n; ++i) {
         owner[i] = omp_get_thread_num();
         for (volatile int spin = 0; spin < (i % 6 + 1) * 7000; ++spin) {

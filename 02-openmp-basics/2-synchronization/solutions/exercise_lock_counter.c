@@ -1,11 +1,22 @@
 #include <stdio.h>
 #include <omp.h>
 
-// TODO: Use an OpenMP lock to protect a shared sum.
+// Solution: Use an OpenMP lock to protect a shared sum.
 // Compute sum_{i=0..iterations-1} i^2.
 long long parallel_locked_square_sum(int iterations) {
-    (void)iterations;
-    return 0;
+    long long sum = 0;
+    omp_lock_t lock;
+    omp_init_lock(&lock);
+
+    #pragma omp parallel for
+    for (int i = 0; i < iterations; i++) {
+        omp_set_lock(&lock);
+        sum += (long long)i * (long long)i;
+        omp_unset_lock(&lock);
+    }
+
+    omp_destroy_lock(&lock);
+    return sum;
 }
 
 int main(void) {

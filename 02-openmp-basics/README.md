@@ -65,6 +65,8 @@ The examples and exercises have been broken down into specific topics (lessons).
 - **`5-data-dependencies/`**: DOALL vs. DOACROSS dependency management (`doall_doacross`).
 - **`6-matmul-optimizations/`**: Compare optimized OpenMP+SIMD vs BLAS for Matrix Multiplication.
 
+Each topic that has `exercises/` now also provides a corresponding `solutions/` folder.
+
 ## Common Failure Modes
 
 - **Race conditions**: shared updates without `critical`, `atomic`, `locks`, or `reduction`.

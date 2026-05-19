@@ -9,8 +9,9 @@ This lesson explores how OpenMP schedules loop iterations among threads using di
 ## Exercises & Examples
 - `examples/scheduling_reference.c`: Example showing different scheduling clauses.
 - `exercises/exercise_schedule_irregular.c`: Practice balancing irregular workloads.
+- `solutions/exercise_schedule_irregular.c`: Reference solution.
 
-## Compilation and Execution on the INFO090 Cluster
+## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash

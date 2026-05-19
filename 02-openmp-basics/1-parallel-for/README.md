@@ -9,8 +9,9 @@ This lesson introduces OpenMP parallel regions and worksharing loop constructs (
 ## Exercises & Examples
 - `examples/vector_add_parallel_reference.c`: An example showing a basic parallelized vector addition.
 - `exercises/exercise_parallel_for.c`: Practice parallelizing a standard loop.
+- `solutions/exercise_parallel_for.c`: Reference solution.
 
-## Compilation and Execution on the INFO090 Cluster
+## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash

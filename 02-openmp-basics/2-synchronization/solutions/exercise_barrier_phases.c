@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <omp.h>
 
-// TODO: Keep the two phases in order.
+// Solution: Keep the two phases in order.
 // Hint: phase 1 uses #pragma omp for nowait.
 // Hint: add an explicit #pragma omp barrier before phase 2.
 int staged_square_sum(const int *values, int n) {
@@ -12,12 +12,14 @@ int staged_square_sum(const int *values, int n) {
     {
         const int tid = omp_get_thread_num();
         const int nthreads = omp_get_num_threads();
+
         #pragma omp for nowait
         for (int i = 0; i < n; ++i) {
             partial[tid] += values[i] * values[i];
         }
 
-        // TODO: synchronize all threads here with #pragma omp barrier.
+        // Ensure all threads finished updating partial before aggregation.
+        #pragma omp barrier
 
         #pragma omp single
         {

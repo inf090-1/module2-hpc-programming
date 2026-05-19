@@ -8,8 +8,10 @@ This lesson covers loop iterations with dependencies, such as loop-carried depen
 
 ## Exercises & Examples
 - `examples/doall_doacross_reference.c`: Example showing different dependency types.
+- `exercises/exercise_doall_doacross.c`: Practice DOALL vs DOACROSS with synchronization.
+- `solutions/exercise_doall_doacross.c`: Reference solution.
 
-## Compilation and Execution on the INFO090 Cluster
+## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash

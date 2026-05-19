@@ -2,16 +2,18 @@
 #include <stdlib.h>
 #include <omp.h>
 
-// TODO: Compute sum of absolute differences between two arrays using OpenMP.
-// Use #pragma omp parallel for with reduction(+:sum).
-long long parallel_abs_diff_sum(const int* a, const int* b, int n) {
-    // TODO: Add #pragma omp parallel for before the loop
-    // TODO: Add reduction(+:sum) clause to avoid race conditions
-    // Hint: sum += abs(a[i] - b[i]) for all i
-    (void)a;
-    (void)b;
-    (void)n;
-    return 0;
+// Solution: Compute sum of absolute differences using OpenMP reduction.
+long long parallel_abs_diff_sum(const int *a, const int *b, int n) {
+    long long sum = 0;
+
+    #pragma omp parallel for reduction(+:sum)
+    for (int i = 0; i < n; i++) {
+        int diff = a[i] - b[i];
+        if (diff < 0) diff = -diff;
+        sum += diff;
+    }
+
+    return sum;
 }
 
 int main(void) {

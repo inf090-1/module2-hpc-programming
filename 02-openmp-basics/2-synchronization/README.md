@@ -12,8 +12,9 @@ This lesson covers critical sections, atomics, locks, and barriers in OpenMP. Wh
 - `examples/atomic_counter_reference.c` / `exercises/exercise_atomic_counter.c`
 - `examples/lock_counter_reference.c` / `exercises/exercise_lock_counter.c`
 - `examples/barrier_phases_reference.c` / `exercises/exercise_barrier_phases.c`
+- `solutions/exercise_critical_max.c`, `solutions/exercise_atomic_counter.c`, `solutions/exercise_lock_counter.c`, `solutions/exercise_barrier_phases.c`: Reference solutions.
 
-## Compilation and Execution on the INFO090 Cluster
+## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash
