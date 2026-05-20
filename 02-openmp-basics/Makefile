@@ -1,7 +1,7 @@
-SUBDIRS = 1-parallel-for 2-synchronization 3-reduction 4-scheduling 5-data-dependencies 6-matmul-optimizations
+SUBDIRS = 1-parallel-for 2-reduction 3-synchronization 4-scheduling 5-matmul
 
 CC = gcc
-CFLAGS = -Wall -fopenmp
+CFLAGS = -O3 -Wall -fopenmp
 
 .PHONY: all clean $(SUBDIRS)
 

@@ -7,18 +7,20 @@ This lesson covers critical sections, atomics, locks, and barriers in OpenMP. Wh
 - Understand how to use OpenMP locks (`omp_lock_t`).
 - Learn how to synchronize threads at a specific point using `#pragma omp barrier`.
 
-## Exercises & Examples
-- `examples/critical_section_reference.c` / `exercises/exercise_critical_max.c`
-- `examples/atomic_counter_reference.c` / `exercises/exercise_atomic_counter.c`
-- `examples/lock_counter_reference.c` / `exercises/exercise_lock_counter.c`
-- `examples/barrier_phases_reference.c` / `exercises/exercise_barrier_phases.c`
-- `solutions/exercise_critical_max.c`, `solutions/exercise_atomic_counter.c`, `solutions/exercise_lock_counter.c`, `solutions/exercise_barrier_phases.c`: Reference solutions.
+## Exercise
+- `exercise_synchronization.c`: Build a histogram with `critical` and compare speedup. You can also explore `atomic` or `omp_lock_t` to protect updates.
+- `solution_synchronization.c`: Reference solution.
+
+### Sync Alternatives
+- `atomic`: best for a single shared increment; lowest overhead when contention is moderate.
+- `omp_lock_t`: useful for more complex critical regions or when you want to lock per-bin.
+- `critical`: simplest correctness baseline; can be slower under heavy contention.
 
 ## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash
-gcc -fopenmp examples/critical_section_reference.c -o critical_section
+gcc -O3 -fopenmp exercise_synchronization.c -o synchronization
 ```
 
 ### Running directly with `srun`
@@ -28,7 +30,7 @@ You can execute the compiled program directly on a compute node using `srun`:
 export OMP_NUM_THREADS=4
 
 # Run on the cpu partition
-srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 ./critical_section
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 ./synchronization
 ```
 
 ### Running via Batch Script (`sbatch`)
@@ -47,7 +49,7 @@ Alternatively, for longer runs, you can submit a batch job. Create a script name
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 # Run the executable
-./critical_section
+./synchronization
 ```
 
 Submit the job using:

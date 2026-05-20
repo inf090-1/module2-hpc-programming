@@ -6,16 +6,15 @@ This lesson introduces OpenMP parallel regions and worksharing loop constructs (
 - Understand how to create a team of threads.
 - Learn how to distribute loop iterations among threads.
 
-## Exercises & Examples
-- `examples/vector_add_parallel_reference.c`: An example showing a basic parallelized vector addition.
-- `exercises/exercise_parallel_for.c`: Practice parallelizing a standard loop.
-- `solutions/exercise_parallel_for.c`: Reference solution.
+## Exercise
+- `exercise_parallel_for.c`: Parallelize a data-parallel transform and compare speedup.
+- `solution_parallel_for.c`: Reference solution.
 
 ## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash
-gcc -fopenmp examples/vector_add_parallel_reference.c -o vector_add
+gcc -O3 -fopenmp exercise_parallel_for.c -o transform
 ```
 
 ### Running directly with `srun`
@@ -25,7 +24,7 @@ You can execute the compiled program directly on a compute node using `srun`:
 export OMP_NUM_THREADS=4
 
 # Run on the cpu partition
-srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 ./vector_add
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 ./transform
 ```
 
 ### Running via Batch Script (`sbatch`)
@@ -44,7 +43,7 @@ Alternatively, for longer runs, you can submit a batch job. Create a script name
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 # Run the executable
-./vector_add
+./transform
 ```
 
 Submit the job using:

@@ -6,16 +6,15 @@ This lesson explores how OpenMP schedules loop iterations among threads using di
 - Learn the difference between static, dynamic, and guided scheduling.
 - Understand how chunk sizes affect load balancing and overhead.
 
-## Exercises & Examples
-- `examples/scheduling_reference.c`: Example showing different scheduling clauses.
-- `exercises/exercise_schedule_irregular.c`: Practice balancing irregular workloads.
-- `solutions/exercise_schedule_irregular.c`: Reference solution.
+## Exercise
+- `exercise_schedule_irregular.c`: Count primes below `2^N` with an irregular loop; compare schedules.
+- `solution_schedule_irregular.c`: Reference solution.
 
 ## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash
-gcc -fopenmp examples/scheduling_reference.c -o scheduling
+gcc -O3 -fopenmp exercise_schedule_irregular.c -o scheduling
 ```
 
 ### Running directly with `srun`

@@ -58,14 +58,11 @@ Use `static` for regular work, `dynamic` for irregular work, and `guided` when t
 
 The examples and exercises have been broken down into specific topics (lessons). Navigate to each directory for specific learning objectives, reference examples, exercises, and cluster execution instructions.
 
-- **`1-parallel-for/`**: Multithreading basics, parallelizing loops (`vector_add_parallel`, `exercise_parallel_for`).
-- **`2-synchronization/`**: Critical sections, atomics, locks, and barriers (`critical_section`, `atomic_counter`, `lock_counter`, `barrier_phases`).
-- **`3-reduction/`**: Race-free accumulation and aggregations (`reduction_reference`, `exercise_reduction`).
-- **`4-scheduling/`**: Tuning work distribution for regular and irregular workloads (`scheduling`, `schedule_irregular`).
-- **`5-data-dependencies/`**: DOALL vs. DOACROSS dependency management (`doall_doacross`).
-- **`6-matmul-optimizations/`**: Compare optimized OpenMP+SIMD vs BLAS for Matrix Multiplication.
-
-Each topic that has `exercises/` now also provides a corresponding `solutions/` folder.
+- **`1-parallel-for/`**: Multithreading basics, parallelizing loops (`exercise_parallel_for`).
+- **`2-reduction/`**: Race-free accumulation and aggregations (`exercise_reduction`).
+- **`3-synchronization/`**: Critical sections and synchronization (`exercise_synchronization`).
+- **`4-scheduling/`**: Tuning work distribution for irregular workloads (`exercise_schedule_irregular`).
+- **`5-matmul/`**: OpenMP+SIMD vs BLAS matrix multiplication (implement in `matmul_omp_simd.c`).
 
 ## Common Failure Modes
 

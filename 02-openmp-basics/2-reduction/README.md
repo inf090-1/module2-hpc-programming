@@ -1,21 +1,20 @@
-# 5. Data Dependencies
+# 3. Reduction Clause
 
-This lesson covers loop iterations with dependencies, such as loop-carried dependencies, and how they restrict parallelism (DOALL vs DOACROSS).
+This lesson introduces the OpenMP `reduction` clause, used to efficiently aggregate results from multiple threads without explicit synchronization.
 
 ## Learning Objectives
-- Identify independent (DOALL) vs dependent (DOACROSS) loops.
-- Learn to manage or restructure dependencies.
+- Understand how OpenMP handles private copies and aggregation for reductions.
+- Learn to safely compute sums, products, max, and min in parallel loops.
 
-## Exercises & Examples
-- `examples/doall_doacross_reference.c`: Example showing different dependency types.
-- `exercises/exercise_doall_doacross.c`: Practice DOALL vs DOACROSS with synchronization.
-- `solutions/exercise_doall_doacross.c`: Reference solution.
+## Exercise
+- `exercise_reduction.c`: Implement a reduction for an L2 norm and compare speedup.
+- `solution_reduction.c`: Reference solution.
 
 ## Compilation and Execution on the INF0090 Cluster
 
 First, compile your code on the login node:
 ```bash
-gcc -fopenmp examples/doall_doacross_reference.c -o dependencies
+gcc -O3 -fopenmp exercise_reduction.c -o reduction
 ```
 
 ### Running directly with `srun`
@@ -25,7 +24,7 @@ You can execute the compiled program directly on a compute node using `srun`:
 export OMP_NUM_THREADS=4
 
 # Run on the cpu partition
-srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 ./dependencies
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 ./reduction
 ```
 
 ### Running via Batch Script (`sbatch`)
@@ -44,7 +43,7 @@ Alternatively, for longer runs, you can submit a batch job. Create a script name
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 # Run the executable
-./dependencies
+./reduction
 ```
 
 Submit the job using:
@@ -53,5 +52,5 @@ sbatch job.slurm
 ```
 You can view the output in the generated `slurm-<job_id>.out` file.
 ## Questions
-- What makes a loop "DOALL"?
-- How can loop-carried dependencies prevent safe parallelization with a basic `#pragma omp parallel for`?
+- What mathematical properties must an operator have to be used safely in an OpenMP reduction?
+- How is memory handled internally by OpenMP for a reduction variable?
