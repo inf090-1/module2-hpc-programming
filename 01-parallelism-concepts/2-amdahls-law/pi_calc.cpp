@@ -19,7 +19,7 @@ int main() {
 
     int num_runs = 5;
     double total_time = 0.0;
-    double pi = 0.0;
+    pi = 0.0;
 
     for (int r = 0; r < num_runs; r++) {
         pi = 0.0;
