@@ -1,4 +1,4 @@
-SUBDIRS = 1-parallel-for 2-reduction 3-synchronization 4-scheduling 5-matmul
+SUBDIRS = 0-parallel-hello 1-parallel-for 2-reduction 3-synchronization 4-scheduling 5-matmul
 
 CC = gcc
 CFLAGS = -O3 -Wall -fopenmp

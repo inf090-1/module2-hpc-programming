@@ -58,6 +58,7 @@ Use `static` for regular work, `dynamic` for irregular work, and `guided` when t
 
 The examples and exercises have been broken down into specific topics (lessons). Navigate to each directory for specific learning objectives, reference examples, exercises, and cluster execution instructions.
 
+- **`0-parallel-hello/`**: Introduction to OpenMP parallel regions (`exercise_parallel_hello`).
 - **`1-parallel-for/`**: Multithreading basics, parallelizing loops (`exercise_parallel_for`).
 - **`2-reduction/`**: Race-free accumulation and aggregations (`exercise_reduction`).
 - **`3-synchronization/`**: Critical sections and synchronization (`exercise_synchronization`).
