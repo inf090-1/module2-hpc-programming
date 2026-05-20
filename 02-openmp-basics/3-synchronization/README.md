@@ -2,10 +2,10 @@
 
 This lesson covers critical sections, atomics, locks, and barriers in OpenMP. When multiple threads access shared resources, synchronization is needed to prevent data races and ensure correctness.
 
-## Learning Objectives
-- Differentiate between `critical` and `atomic` operations.
-- Understand how to use OpenMP locks (`omp_lock_t`).
-- Learn how to synchronize threads at a specific point using `#pragma omp barrier`.
+## What You Will Practice
+- Build a shared histogram in parallel.
+- Protect shared histogram updates with synchronization.
+- Compare `critical` with alternatives like `atomic` and `omp_lock_t`.
 
 ## Exercise
 - `exercise_synchronization.c`: Build a histogram with `critical` and compare speedup. You can also explore `atomic` or `omp_lock_t` to protect updates.
