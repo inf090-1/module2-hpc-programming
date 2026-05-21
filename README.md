@@ -15,3 +15,4 @@ This module moves from using the cluster to programming for it. Day 1 focuses on
 
 - [01-parallelism-concepts](01-parallelism-concepts/README.md): scaling concepts, HPC architecture, inspection tools, C/C++, Python, and Roofline.
 - [02-openmp-basics](02-openmp-basics/README.md): multithreading, `omp parallel`, `omp for`, synchronization, atomics, locks, critical sections, loop scheduling, and DOALL/DOACROSS.
+- [03-basic-gpu-programming](03-basic-gpu-programming/README.md): ROCm/HIP basics, kernels, shared memory, and basic profiling with rocprofv3.

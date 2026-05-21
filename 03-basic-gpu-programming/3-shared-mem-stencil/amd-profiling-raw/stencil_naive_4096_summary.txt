@@ -1,0 +1,26 @@
+
+ROCPROFV3 KERNEL_DISPATCH SUMMARY:
+
+|                       NAME                       |     DOMAIN      |      CALLS      | DURATION (nsec) | AVERAGE (nsec)  | PERCENT (INC) |   MIN (nsec)    |   MAX (nsec)    |     STDDEV      |
+|--------------------------------------------------|-----------------|-----------------|-----------------|-----------------|---------------|-----------------|-----------------|-----------------|
+| stencil_step_hip(float const*, float*, int, int) | KERNEL_DISPATCH |              50 |         3516311 |       7.033e+04 |     99.387448 |           60410 |          112568 |       9.985e+03 |
+| __amd_rocclr_fillBufferAligned                   | KERNEL_DISPATCH |               1 |           21672 |       2.167e+04 |      0.612552 |           21672 |           21672 |       0.000e+00 |
+
+
+ROCPROFV3 MEMORY_COPY SUMMARY:
+
+|                   NAME                   |    DOMAIN    |      CALLS      | DURATION (nsec) | AVERAGE (nsec)  | PERCENT (INC) |   MIN (nsec)    |   MAX (nsec)    |     STDDEV      |
+|------------------------------------------|--------------|-----------------|-----------------|-----------------|---------------|-----------------|-----------------|-----------------|
+| MEMORY_COPY_HOST_TO_DEVICE               | MEMORY_COPY  |               2 |         1493061 |       7.465e+05 |     51.684883 |          745830 |          747231 |       9.907e+02 |
+| MEMORY_COPY_DEVICE_TO_HOST               | MEMORY_COPY  |               2 |         1395716 |       6.979e+05 |     48.315117 |          697477 |          698239 |       5.388e+02 |
+
+
+ROCPROFV3 SUMMARY:
+
+|                       NAME                       |     DOMAIN      |      CALLS      | DURATION (nsec) | AVERAGE (nsec)  | PERCENT (INC) |   MIN (nsec)    |   MAX (nsec)    |     STDDEV      |
+|--------------------------------------------------|-----------------|-----------------|-----------------|-----------------|---------------|-----------------|-----------------|-----------------|
+| stencil_step_hip(float const*, float*, int, int) | KERNEL_DISPATCH |              50 |         3516311 |       7.033e+04 |     54.713588 |           60410 |          112568 |       9.985e+03 |
+| MEMORY_COPY_HOST_TO_DEVICE                       | MEMORY_COPY     |               2 |         1493061 |       7.465e+05 |     23.231940 |          745830 |          747231 |       9.907e+02 |
+| MEMORY_COPY_DEVICE_TO_HOST                       | MEMORY_COPY     |               2 |         1395716 |       6.979e+05 |     21.717257 |          697477 |          698239 |       5.388e+02 |
+| __amd_rocclr_fillBufferAligned                   | KERNEL_DISPATCH |               1 |           21672 |       2.167e+04 |      0.337215 |           21672 |           21672 |       0.000e+00 |
+

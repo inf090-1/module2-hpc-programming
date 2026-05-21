@@ -1,0 +1,26 @@
+
+ROCPROFV3 KERNEL_DISPATCH SUMMARY:
+
+|                           NAME                            |     DOMAIN      |      CALLS      | DURATION (nsec) | AVERAGE (nsec)  | PERCENT (INC) |   MIN (nsec)    |   MAX (nsec)    |     STDDEV      |
+|-----------------------------------------------------------|-----------------|-----------------|-----------------|-----------------|---------------|-----------------|-----------------|-----------------|
+| matmul_naive_hip(float const*, float const*, float*, int) | KERNEL_DISPATCH |               4 |         2592576 |       6.481e+05 |     99.222699 |          620443 |          659942 |       1.860e+04 |
+| __amd_rocclr_fillBufferAligned                            | KERNEL_DISPATCH |               4 |           20310 |       5.078e+03 |      0.777301 |            4206 |            6049 |       9.474e+02 |
+
+
+ROCPROFV3 MEMORY_COPY SUMMARY:
+
+|                   NAME                   |    DOMAIN    |      CALLS      | DURATION (nsec) | AVERAGE (nsec)  | PERCENT (INC) |   MIN (nsec)    |   MAX (nsec)    |     STDDEV      |
+|------------------------------------------|--------------|-----------------|-----------------|-----------------|---------------|-----------------|-----------------|-----------------|
+| MEMORY_COPY_HOST_TO_DEVICE               | MEMORY_COPY  |               8 |          746149 |       9.327e+04 |     64.808584 |           89693 |          102192 |       5.461e+03 |
+| MEMORY_COPY_DEVICE_TO_HOST               | MEMORY_COPY  |               4 |          405163 |       1.013e+05 |     35.191416 |           82723 |          107600 |       1.238e+04 |
+
+
+ROCPROFV3 SUMMARY:
+
+|                           NAME                            |     DOMAIN      |      CALLS      | DURATION (nsec) | AVERAGE (nsec)  | PERCENT (INC) |   MIN (nsec)    |   MAX (nsec)    |     STDDEV      |
+|-----------------------------------------------------------|-----------------|-----------------|-----------------|-----------------|---------------|-----------------|-----------------|-----------------|
+| matmul_naive_hip(float const*, float const*, float*, int) | KERNEL_DISPATCH |               4 |         2592576 |       6.481e+05 |     68.874592 |          620443 |          659942 |       1.860e+04 |
+| MEMORY_COPY_HOST_TO_DEVICE                                | MEMORY_COPY     |               8 |          746149 |       9.327e+04 |     19.822257 |           89693 |          102192 |       5.461e+03 |
+| MEMORY_COPY_DEVICE_TO_HOST                                | MEMORY_COPY     |               4 |          405163 |       1.013e+05 |     10.763594 |           82723 |          107600 |       1.238e+04 |
+| __amd_rocclr_fillBufferAligned                            | KERNEL_DISPATCH |               4 |           20310 |       5.078e+03 |      0.539557 |            4206 |            6049 |       9.474e+02 |
+
