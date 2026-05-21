@@ -16,9 +16,8 @@ This lesson compares a CPU OpenMP 2D stencil and a GPU HIP stencil.
 First, compile on the login node:
 
 ```bash
-hipcc -O3 -fopenmp --offload-arch=native exercise_stencil_2d_hip.cpp -o stencil_2d
-# or explicitly for MI300X:
-# hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_stencil_2d_hip.cpp -o stencil_2d
+hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_stencil_2d_hip.cpp -o stencil_2d
+
 ```
 
 ### Running directly with `srun`

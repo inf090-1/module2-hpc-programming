@@ -6,7 +6,7 @@ This day introduces GPU programming with AMD's ROCm stack and the HIP API. You w
 
 | Task | Command / API |
 |---|---|
-| Compile HIP code (MI300X-safe) | `hipcc -O3 --offload-arch=native file.cpp -o app` |
+| Compile HIP code (MI300X-safe) | `hipcc -O3 --offload-arch=gfx942 file.cpp -o app` |
 | Launch a kernel | `kernel<<<grid, block>>>(...)` |
 | Allocate device memory | `hipMalloc` |
 | Copy memory | `hipMemcpy` |
@@ -57,7 +57,7 @@ Follow those instructions from inside each lesson directory.
 
 ## MI300X Notes (INF0090)
 
-- Use `--offload-arch=native` when compiling directly on a GPU node, or `--offload-arch=gfx942` for explicit MI300X binaries.
+- Compile with `--offload-arch=gfx942`.
 - On some nodes, `module load rocm` may be unavailable even though ROCm exists at `/opt/rocm`.
 - If execution fails with `libomp.so: cannot open shared object file`, export runtime libraries:
 

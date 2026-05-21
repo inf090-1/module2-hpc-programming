@@ -1,5 +1,6 @@
 CC = hipcc
-CFLAGS = -O3 -Wall -fopenmp
+HIP_ARCH ?= gfx942
+CFLAGS = -O3 -Wall -fopenmp --offload-arch=$(HIP_ARCH)
 
 all: exercise_stencil_2d_hip solution_stencil_2d_hip
 

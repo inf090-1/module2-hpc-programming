@@ -1,7 +1,7 @@
 SUBDIRS = 0-hello-gpu 1-vector-add 2-stencil-2d 3-shared-mem-stencil 4-matmul-naive
 
 HIPCC = hipcc
-HIP_ARCH ?= native
+HIP_ARCH ?= gfx942
 ROCM_ROOT ?= /opt/rocm
 GCC_RUNTIME_LIB ?= /opt/ohpc/pub/compiler/gcc/14.2.0/lib64
 

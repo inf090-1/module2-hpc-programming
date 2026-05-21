@@ -18,10 +18,9 @@ This lesson focuses on implementing a naive matrix multiplication kernel and com
 First, compile on the login node:
 
 ```bash
-hipcc -O3 -fopenmp --offload-arch=native exercise_matmul_hip.cpp -o exercise_matmul_hip
-hipcc -O3 -fopenmp --offload-arch=native -lrocblas solution_rocblas_matmul.cpp -o solution_rocblas_matmul
-# or explicitly for MI300X:
-# hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_matmul_hip.cpp -o exercise_matmul_hip
+hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_matmul_hip.cpp -o exercise_matmul_hip
+hipcc -O3 -fopenmp --offload-arch=gfx942 -lrocblas solution_rocblas_matmul.cpp -o solution_rocblas_matmul
+
 ```
 
 ### Running directly with `srun`

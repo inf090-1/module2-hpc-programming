@@ -16,9 +16,8 @@ This lesson compares a CPU OpenMP vector addition with a GPU HIP kernel.
 First, compile on the login node:
 
 ```bash
-hipcc -O3 -fopenmp --offload-arch=native exercise_vector_add_hip.cpp -o vector_add
-# or explicitly for MI300X:
-# hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_vector_add_hip.cpp -o vector_add
+hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_vector_add_hip.cpp -o vector_add
+
 ```
 
 ### Running directly with `srun`

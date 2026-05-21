@@ -16,9 +16,8 @@ This introductory lesson presents the HIP execution model and device-side `print
 First, compile on the login node:
 
 ```bash
-hipcc -O3 --offload-arch=native exercise_hello_gpu.cpp -o hello_gpu
-# or explicitly for MI300X:
-# hipcc -O3 --offload-arch=gfx942 exercise_hello_gpu.cpp -o hello_gpu
+hipcc -O3 --offload-arch=gfx942 exercise_hello_gpu.cpp -o hello_gpu
+
 ```
 
 ### Running directly with `srun`

@@ -16,9 +16,8 @@ This lesson expands on the previous stencil example by leveraging shared memory 
 First, compile on the login node:
 
 ```bash
-hipcc -O3 -fopenmp --offload-arch=native exercise_stencil_2d_hip.cpp -o stencil_2d_shmem
-# or explicitly for MI300X:
-# hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_stencil_2d_hip.cpp -o stencil_2d_shmem
+hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_stencil_2d_hip.cpp -o stencil_2d_shmem
+
 ```
 
 ### Running directly with `srun`

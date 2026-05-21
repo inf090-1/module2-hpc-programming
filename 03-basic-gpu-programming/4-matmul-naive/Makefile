@@ -1,5 +1,6 @@
 CC = hipcc
-CFLAGS = -O3 -Wall -fopenmp
+HIP_ARCH ?= gfx942
+CFLAGS = -O3 -Wall -fopenmp --offload-arch=$(HIP_ARCH)
 ROCBLAS_FLAGS = -lrocblas
 
 all: exercise_matmul_hip solution_matmul_hip solution_rocblas_matmul
