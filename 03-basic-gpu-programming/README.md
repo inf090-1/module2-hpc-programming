@@ -1,7 +1,6 @@
 # Day 3 - Basic GPU Programming with ROCm/HIP
 
-This day follows the same lesson-oriented structure used in `../02-openmp-basics`.
-Each exercise is now isolated in its own folder so students can focus on one concept at a time.
+This day introduces GPU programming with AMD's ROCm stack and the HIP API. You will learn the core ideas behind kernels, threads, and device memory, then use them to write simple GPU programs.
 
 ## Quick Cheat Sheet
 
