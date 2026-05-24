@@ -1,0 +1,14 @@
+
+ROCPROFV3 SUMMARY:
+
+|                        NAME                        |     DOMAIN      |      CALLS      | DURATION (nsec) | AVERAGE (nsec)  | PERCENT (INC) |   MIN (nsec)    |   MAX (nsec)    |     STDDEV      |
+|----------------------------------------------------|-----------------|-----------------|-----------------|-----------------|---------------|-----------------|-----------------|-----------------|
+| hipMemcpy                                          | HIP_API         |               2 |      1083411223 |       5.417e+08 |     91.322008 |        99981057 |       983430166 |       6.247e+08 |
+| hipMalloc                                          | HIP_API         |               2 |       100645324 |       5.032e+07 |      8.483513 |           29664 |       100615660 |       7.113e+07 |
+| hipLaunchKernel                                    | HIP_API         |              51 |         1284584 |       2.519e+04 |      0.108279 |            7371 |          700170 |       9.649e+04 |
+| hipFree                                            | HIP_API         |               2 |          570158 |       2.851e+05 |      0.048059 |          249581 |          320577 |       5.020e+04 |
+| transform_kernel(float const*, float*, int, float) | KERNEL_DISPATCH |              51 |          243685 |       4.778e+03 |      0.020540 |            4607 |            7611 |       4.133e+02 |
+| MEMORY_COPY_DEVICE_TO_HOST                         | MEMORY_COPY     |               1 |           81802 |       8.180e+04 |      0.006895 |           81802 |           81802 |       0.000e+00 |
+| MEMORY_COPY_HOST_TO_DEVICE                         | MEMORY_COPY     |               1 |           81561 |       8.156e+04 |      0.006875 |           81561 |           81561 |       0.000e+00 |
+| hipDeviceSynchronize                               | HIP_API         |               2 |           45438 |       2.272e+04 |      0.003830 |           18197 |           27241 |       6.395e+03 |
+
