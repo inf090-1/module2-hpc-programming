@@ -126,11 +126,6 @@ int main(void) {
 
     hipEventRecord(start);
     // TODO: Launch compute_scores, softmax_rows, compute_output in the correct order.
-    // compute_scores<<<dim3(1, SEQ_LEN, 1), SEQ_LEN>>>(d_Q, d_K, d_S);
-    // softmax_rows<<<SEQ_LEN, SEQ_LEN>>>(d_S);
-    // dim3 block(32, 1, 1);
-    // dim3 grid((EMBED_DIM + block.x - 1) / block.x, SEQ_LEN, 1);
-    // compute_output<<<grid, block>>>(d_S, d_V, d_O);
     hipEventRecord(stop);
     hipEventSynchronize(stop);
 

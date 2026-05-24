@@ -178,7 +178,6 @@ int main(void) {
 
     hipEventRecord(start);
     // TODO: Launch conv2d_naive_3x3 kernel.
-    // hipLaunchKernelGGL(conv2d_naive_3x3, blocks, threads, 0, 0, d_input, d_kernel, d_out_naive, H, W);
     hipEventRecord(stop);
     hipEventSynchronize(stop);
 

@@ -21,10 +21,9 @@ This day builds on basic GPU kernels and moves into more advanced topics:
    - `exercise_attention_basic.cpp`
    - `solution_attention_basic.cpp`
 
-4. `4-hip-profiling-amd-tools/`  
+4. `4-hip-profiling-amd-tools/`
    - `profiling_target_hip.cpp`
-   - `exercise_profile_hip.sh`
-   - `solution_profile_hip.sh`
+   - `profile_hip.sh`
 
 ## Running the solutions
 All HIP programs print:

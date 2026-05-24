@@ -87,7 +87,6 @@ int main(void) {
 
     hipEventRecord(start);
     // TODO: Launch matmul_tiled_shmem kernel.
-    // hipLaunchKernelGGL(matmul_tiled_shmem, blocks, threads, 0, 0, d_A, d_B, d_C, M, N, K);
     hipEventRecord(stop);
     hipEventSynchronize(stop);
 

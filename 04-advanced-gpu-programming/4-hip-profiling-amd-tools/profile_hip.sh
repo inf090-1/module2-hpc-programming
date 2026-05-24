@@ -11,6 +11,8 @@ else
   echo "rocminfo not found"
 fi
 
+rm -rf rocprofv3_out
+
 echo "== rocprofv3 stats + trace (pftrace for Perfetto) =="
 # We generate both:
 #  - a compact perfetto-compatible pftrace timeline (for UI.perfetto.dev)
@@ -22,6 +24,16 @@ rocprofv3 \
   --output-file rocprofv3_out \
   -f pftrace json csv \
   -- ./profiling_target
+
+# Flatten rocprofv3 output (rocprofv3 defaults to a nested folder).
+# After flattening, students can find rocprofv3_out_results.pftrace directly under rocprofv3_out/.
+if [ -d "rocprofv3_out/rocprofv3_out" ]; then
+  shopt -s nullglob
+  for f in rocprofv3_out/rocprofv3_out/*; do
+    mv "$f" rocprofv3_out/
+  done
+  rmdir rocprofv3_out/rocprofv3_out 2>/dev/null || true
+fi
 
 # Also try to collect HSA trace if available (optional):
 # rocprofv3 --stats --kernel-trace --hsa-trace ... -- ./profiling_target
