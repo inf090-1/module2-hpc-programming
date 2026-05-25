@@ -16,7 +16,7 @@ This exercise compares a **naive 2D 3x3 convolution** implemented in HIP against
 First, compile on the login node:
 
 ```bash
-hipcc -O3 --offload-arch=gfx942 exercise_conv2d_vs_miopen.cpp -o exercise_conv2d_vs_miopen -lmiopen
+hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_conv2d_vs_miopen.cpp -o exercise_conv2d_vs_miopen -lmiopen
 ```
 
 ### Running directly with `srun`

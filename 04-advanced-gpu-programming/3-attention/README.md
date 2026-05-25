@@ -20,7 +20,7 @@ This exercise implements a small, educational version of **scaled dot-product at
 First, compile on the login node:
 
 ```bash
-hipcc -O3 --offload-arch=gfx942 exercise_attention_basic.cpp -o exercise_attention_basic
+hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_attention_basic.cpp -o exercise_attention_basic
 ```
 
 ### Running directly with `srun`

@@ -16,7 +16,7 @@ This lesson focuses on writing an efficient **tiled matrix multiplication** (GEM
 First, compile on the login node:
 
 ```bash
-hipcc -O3 --offload-arch=gfx942 exercise_matmul_coalescing.cpp -o exercise_matmul_coalescing
+hipcc -O3 -fopenmp --offload-arch=gfx942 exercise_matmul_coalescing.cpp -o exercise_matmul_coalescing
 ```
 
 ### Running directly with `srun`
