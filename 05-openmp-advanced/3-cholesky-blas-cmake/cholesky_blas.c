@@ -213,7 +213,9 @@ int main(int argc, char **argv)
   cholesky_util_fill_spd_from_L(n, A, Ltmp, seed);
   memcpy(A_orig, A, bytes);
 
+  double t0 = omp_get_wtime();
   cholesky_blocked_blas_tasks(n, A, block);
+  double t1 = omp_get_wtime();
 
   double res = cholesky_util_residual_frob(n, A_orig, A);
 
@@ -222,6 +224,7 @@ int main(int argc, char **argv)
 
   printf("Cholesky (OpenMP tasks + BLAS) OK\n");
   printf("  n=%d block=%d seed=%u\n", n, block, seed);
+  printf("  time=%.6f s\n", t1 - t0);
   printf("  diag_sum=%.12e\n", diag_sum);
   printf("  residual_Frob=%.6e\n", res);
 
