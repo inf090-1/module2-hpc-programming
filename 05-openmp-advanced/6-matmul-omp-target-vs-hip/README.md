@@ -1,4 +1,4 @@
-# 5. Matmul roofline: OpenMP target vs HIP vs rocBLAS
+# 6. Matmul roofline: OpenMP target vs HIP vs rocBLAS
 
 This lesson focuses on **roofline profiling** for three GPU implementations:
 - **HIP kernel** (explicit GPU kernel)
