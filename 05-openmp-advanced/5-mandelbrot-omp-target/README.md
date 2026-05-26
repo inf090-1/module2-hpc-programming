@@ -60,7 +60,7 @@ The program writes `mandelbrot.ppm` in the current directory.
 
 ### Using the root Makefile (recommended)
 ```bash
-cd /home/cl3t0/module2-hpc-programming/05-openmp-advanced
+cd 05-openmp-advanced
 make 5-mandelbrot-omp-target/solution_mandelbrot
 ```
 
@@ -74,8 +74,8 @@ amdclang++ -O3 -fopenmp \
 
 ### Running directly with `srun`
 ```bash
+cd 5-mandelbrot-omp-target
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:2 \
-  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/5-mandelbrot-omp-target \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
            export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; \
            ./exercise_mandelbrot'
@@ -91,8 +91,8 @@ Create `job.slurm`:
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:2
 #SBATCH --time=00:30:00
-#SBATCH --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/5-mandelbrot-omp-target
 
+cd 5-mandelbrot-omp-target
 export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}
 ./exercise_mandelbrot

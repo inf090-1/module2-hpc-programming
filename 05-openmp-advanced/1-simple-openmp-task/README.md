@@ -29,7 +29,7 @@ Each exercise compares the computed result against a known expected value.
 
 ### Using the root Makefile (recommended)
 ```bash
-cd /home/cl3t0/module2-hpc-programming/05-openmp-advanced
+cd 05-openmp-advanced
 make 1-simple-openmp-task/solution_fibonacci_tasks
 make 1-simple-openmp-task/solution_tree_tasks
 ```
@@ -42,9 +42,10 @@ gcc -O3 -fopenmp exercise_tree_tasks.c -o exercise_tree_tasks
 
 ### Running directly with `srun`
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/1-simple-openmp-task \
+cd 1-simple-openmp-task
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 \
   bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}; ./exercise_fibonacci_tasks'
-srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/1-simple-openmp-task \
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 \
   bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}; ./exercise_tree_tasks'
 ```
 
@@ -57,8 +58,8 @@ Create `job_fib.slurm`:
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --time=00:05:00
-#SBATCH --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/1-simple-openmp-task
 
+cd 1-simple-openmp-task
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
 ./exercise_fibonacci_tasks
 ```

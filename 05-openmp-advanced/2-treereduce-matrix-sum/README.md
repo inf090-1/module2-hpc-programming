@@ -30,7 +30,7 @@ The program builds `NUM_MATS` input matrices (flat row-major arrays), sums them 
 
 ### Using the root Makefile (recommended)
 ```bash
-cd /home/cl3t0/module2-hpc-programming/05-openmp-advanced
+cd 05-openmp-advanced
 make 2-treereduce-matrix-sum/solution_tree_reduce
 ```
 
@@ -41,7 +41,8 @@ gcc -O3 -fopenmp exercise_tree_reduce.c -o exercise_tree_reduce
 
 ### Running directly with `srun`
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/2-treereduce-matrix-sum \
+cd 2-treereduce-matrix-sum
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 \
   bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}; ./exercise_tree_reduce'
 ```
 
@@ -53,8 +54,8 @@ srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --chdir=/home/cl3t0/
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --time=00:10:00
-#SBATCH --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/2-treereduce-matrix-sum
 
+cd 2-treereduce-matrix-sum
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
 ./exercise_tree_reduce
 ```

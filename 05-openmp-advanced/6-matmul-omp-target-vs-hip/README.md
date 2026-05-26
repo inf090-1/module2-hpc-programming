@@ -65,24 +65,24 @@ export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH
 
 HIP:
 ```bash
+cd 6-matmul-omp-target-vs-hip
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
-  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/6-matmul-omp-target-vs-hip \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
             export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./hip_matmul 384'
 ```
 
 OpenMP target:
 ```bash
+cd 6-matmul-omp-target-vs-hip
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
-  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/6-matmul-omp-target-vs-hip \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
             export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./omp_target_matmul 384'
 ```
 
 rocBLAS:
 ```bash
+cd 6-matmul-omp-target-vs-hip
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
-  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/6-matmul-omp-target-vs-hip \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
             export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./rocblas_matmul 384'
 ```

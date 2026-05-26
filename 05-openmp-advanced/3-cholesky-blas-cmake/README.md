@@ -30,8 +30,8 @@ Executable:
 Build with CMake on a CPU node:
 
 ```bash
+cd 3-cholesky-blas-cmake
 srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --time=5:00 \
-  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/3-cholesky-blas-cmake \
   bash -c 'module load cmake openblas/0.3.29 && \
     rm -rf build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j'
 ```
@@ -48,8 +48,8 @@ srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --time=5:00 \
 
 ### On the INF0090 cluster
 ```bash
+cd 3-cholesky-blas-cmake
 srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --time=5:00 \
-  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/3-cholesky-blas-cmake \
   bash -c 'module load openblas/0.3.29 && \
            export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4} && \
            ./build/cholesky_blas 512 64 0'

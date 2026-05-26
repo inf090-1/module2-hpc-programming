@@ -31,7 +31,7 @@ The program computes `c[i] = compute_busy(a[i], b[i])` on the GPU and validates 
 
 ### Using the root Makefile (recommended)
 ```bash
-cd /home/cl3t0/module2-hpc-programming/05-openmp-advanced
+cd 05-openmp-advanced
 make 4-omp-target-vector-add/solution_vector_add
 ```
 
@@ -44,8 +44,8 @@ amdclang -O3 -fopenmp \
 
 ### Running directly with `srun`
 ```bash
+cd 4-omp-target-vector-add
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
-  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/4-omp-target-vector-add \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
            export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; \
            ./exercise_vector_add'
@@ -61,8 +61,8 @@ Create `job.slurm`:
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:1
 #SBATCH --time=00:05:00
-#SBATCH --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/4-omp-target-vector-add
 
+cd 4-omp-target-vector-add
 export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}
 ./exercise_vector_add
