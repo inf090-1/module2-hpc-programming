@@ -17,4 +17,4 @@ This module moves from using the cluster to programming for it. Day 1 focuses on
 - [02-openmp-basics](02-openmp-basics/README.md): multithreading, `omp parallel`, `omp for`, synchronization, atomics, locks, critical sections, loop scheduling, and DOALL/DOACROSS.
 - [03-basic-gpu-programming](03-basic-gpu-programming/README.md): ROCm/HIP basics, kernels, shared memory, and basic profiling with rocprofv3.
 - [04-advanced-gpu-programming](04-advanced-gpu-programming/README.md): coalescing, MIOpen, attention, tracing, and profiling.
-- [05-openmp-gpu](05-openmp-gpu/README.md): OpenMP tasks, then OpenMP target offload and profiling.
+- [05-openmp-advanced](05-openmp-advanced/README.md): OpenMP tasks, then OpenMP target offload and profiling.

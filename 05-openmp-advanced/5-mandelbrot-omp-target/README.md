@@ -102,12 +102,17 @@ Submit:
 sbatch job.slurm
 ```
 
-## Viewing the output image
+## Output image
+
 After running, the program writes `mandelbrot.ppm` in the current directory.
 Convert to PNG:
 ```bash
 magick mandelbrot.ppm mandelbrot.png
 ```
+
+### Example result (4096×4096, 5000 iterations, 2× MI300X)
+
+![Mandelbrot fractal](mandelbrot.png)
 
 ## Questions
 - Why is a 4096×4096 image necessary to get good GPU speedup? What happens at 1024×1024?

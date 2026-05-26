@@ -29,3 +29,6 @@
 # Virtual env
 venv
 .venv
+
+# PPM files
+*.ppm
