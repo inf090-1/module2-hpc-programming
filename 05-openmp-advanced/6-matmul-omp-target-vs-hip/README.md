@@ -58,30 +58,33 @@ hipcc -O3 -fopenmp --offload-arch=gfx942 -std=c++17 rocblas_matmul.cpp -lrocblas
 ### Runtime env (OpenMP runtime on g1)
 On the GPU node, ensure the OpenMP runtime is available:
 ```bash
-export LD_LIBRARY_PATH=/opt/rocm-7.2.0/lib/llvm/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH
 ```
 
 ## Run with `srun`
 
 HIP:
 ```bash
-srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gpus-per-node=1 \
-  bash -lc 'export LD_LIBRARY_PATH=/opt/rocm-7.2.0/lib/llvm/lib:$LD_LIBRARY_PATH; \
-            export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK; ./hip_matmul 384'
+srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
+  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/6-matmul-omp-target-vs-hip \
+  bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
+            export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./hip_matmul 384'
 ```
 
 OpenMP target:
 ```bash
-srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gpus-per-node=1 \
-  bash -lc 'export LD_LIBRARY_PATH=/opt/rocm-7.2.0/lib/llvm/lib:$LD_LIBRARY_PATH; \
-            export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK; ./omp_target_matmul 384'
+srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
+  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/6-matmul-omp-target-vs-hip \
+  bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
+            export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./omp_target_matmul 384'
 ```
 
 rocBLAS:
 ```bash
-srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gpus-per-node=1 \
-  bash -lc 'export LD_LIBRARY_PATH=/opt/rocm-7.2.0/lib/llvm/lib:$LD_LIBRARY_PATH; \
-            export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK; ./rocblas_matmul 384'
+srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
+  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/6-matmul-omp-target-vs-hip \
+  bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
+            export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./rocblas_matmul 384'
 ```
 
 ## Notes
@@ -106,7 +109,7 @@ If `convert` is available, it also creates a combined PNG.
 ### Step-by-step to generate a roofline run
 1) Install rocprof-compute dependencies (on login node):
 ```bash
-pip3 install --user -r /opt/rocm-7.2.3/libexec/rocprofiler-compute/requirements.txt
+pip3 install --user -r /opt/rocm/libexec/rocprofiler-compute/requirements.txt
 pip3 install --user pytz==2021.1
 ```
 

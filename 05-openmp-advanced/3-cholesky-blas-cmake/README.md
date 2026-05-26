@@ -14,6 +14,7 @@ The diagonal block `L(k,k)` factorization uses a simple loop-based Cholesky to k
 
 ## Build with CMake
 
+### Locally (if BLAS + CMake are available)
 ```bash
 cd 05-openmp-advanced/3-cholesky-blas-cmake
 mkdir -p build
@@ -24,7 +25,19 @@ cmake --build build -j
 Executable:
 - `build/cholesky_blas`
 
+### On the INF0090 cluster
+
+Build with CMake on a CPU node:
+
+```bash
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --time=5:00 \
+  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/3-cholesky-blas-cmake \
+  bash -c 'module load cmake openblas/0.3.29 && \
+    rm -rf build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j'
+```
+
 ## Execution
+
 ```bash
 ./build/cholesky_blas 512 64 0
 ```
@@ -32,6 +45,15 @@ Executable:
 - `n` = size of the SPD matrix
 - `block` = tile size used to partition the matrix
 - `seed` = random generator seed
+
+### On the INF0090 cluster
+```bash
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --time=5:00 \
+  --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/3-cholesky-blas-cmake \
+  bash -c 'module load openblas/0.3.29 && \
+           export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4} && \
+           ./build/cholesky_blas 512 64 0'
+```
 
 The program prints a checksum (`diag_sum`) and a `residual_Frob` to validate the factorization.
 

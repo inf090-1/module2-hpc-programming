@@ -76,7 +76,7 @@ amdclang++ -O3 -fopenmp \
 ```bash
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:2 \
   --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/5-mandelbrot-omp-target \
-  bash -c 'export LD_LIBRARY_PATH=/opt/rocm-7.2.0/lib/llvm/lib:$LD_LIBRARY_PATH; \
+  bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
            export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; \
            ./exercise_mandelbrot'
 ```
@@ -93,7 +93,7 @@ Create `job.slurm`:
 #SBATCH --time=00:30:00
 #SBATCH --chdir=/home/cl3t0/module2-hpc-programming/05-openmp-advanced/5-mandelbrot-omp-target
 
-export LD_LIBRARY_PATH=/opt/rocm-7.2.0/lib/llvm/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}
 ./exercise_mandelbrot
 ```
