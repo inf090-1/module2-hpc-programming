@@ -14,6 +14,13 @@ set -euo pipefail
 #   - ./omp_target_matmul
 #   - ./rocblas_matmul
 
+# Auto-submit to GPU partition via srun if not already in a Slurm job
+if [[ -z "${SLURM_JOB_ID:-}" ]]; then
+  echo "[INFO] Not in a Slurm job. Submitting to GPU partition via srun..."
+  exec srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 --time=30:00 \
+    "$0" "$@"
+fi
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
@@ -50,10 +57,12 @@ DIM_ARG="${DIM_ARG:-0}"
 export ROCPROFILER_SDK_LIBRARY_PATH="${ROCPROFILER_SDK_LIBRARY_PATH:-}"
 
 LIBOMP_DIR=""
-if [[ -d "/opt/rocm-7.2.0/lib/llvm/lib" ]]; then
-  LIBOMP_DIR="/opt/rocm-7.2.0/lib/llvm/lib"
+if [[ -d "/opt/rocm/lib/llvm/lib" ]]; then
+  LIBOMP_DIR="/opt/rocm/lib/llvm/lib"
 elif [[ -d "/opt/rocm-7.2.3/lib/llvm/lib" ]]; then
   LIBOMP_DIR="/opt/rocm-7.2.3/lib/llvm/lib"
+elif [[ -d "/opt/rocm-7.2.0/lib/llvm/lib" ]]; then
+  LIBOMP_DIR="/opt/rocm-7.2.0/lib/llvm/lib"
 fi
 
 if [[ -n "$LIBOMP_DIR" ]]; then

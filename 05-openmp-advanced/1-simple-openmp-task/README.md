@@ -28,21 +28,22 @@ Each exercise compares the computed result against a known expected value.
 ## Compilation and Execution on the INF0090 Cluster
 
 ### Using the root Makefile (recommended)
+From the root of the repository:
 ```bash
-cd 05-openmp-advanced
-make 1-simple-openmp-task/solution_fibonacci_tasks
-make 1-simple-openmp-task/solution_tree_tasks
+make -C 05-openmp-advanced 1-simple-openmp-task/solution_fibonacci_tasks
+make -C 05-openmp-advanced 1-simple-openmp-task/solution_tree_tasks
 ```
 
 ### Manual compilation
+From the lesson directory (`1-simple-openmp-task/`):
 ```bash
 gcc -O3 -fopenmp exercise_fibonacci_tasks.c -o exercise_fibonacci_tasks
 gcc -O3 -fopenmp exercise_tree_tasks.c -o exercise_tree_tasks
 ```
 
 ### Running directly with `srun`
+From the lesson directory (`1-simple-openmp-task/`):
 ```bash
-cd 1-simple-openmp-task
 srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 \
   bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}; ./exercise_fibonacci_tasks'
 srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 \
@@ -50,7 +51,7 @@ srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 \
 ```
 
 ### Running via Batch Script (`sbatch`)
-Create `job_fib.slurm`:
+Create `job_fib.slurm` in the lesson directory (`1-simple-openmp-task/`):
 ```bash
 #!/bin/bash
 #SBATCH --partition=cpu
@@ -59,7 +60,6 @@ Create `job_fib.slurm`:
 #SBATCH --cpus-per-task=4
 #SBATCH --time=00:05:00
 
-cd 1-simple-openmp-task
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
 ./exercise_fibonacci_tasks
 ```

@@ -15,11 +15,9 @@ The diagonal block `L(k,k)` factorization uses a simple loop-based Cholesky to k
 ## Build with CMake
 
 ### Locally (if BLAS + CMake are available)
+From the lesson directory (`3-cholesky-blas-cmake/`):
 ```bash
-cd 05-openmp-advanced/3-cholesky-blas-cmake
-mkdir -p build
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j
+mkdir -p build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j
 ```
 
 Executable:
@@ -27,19 +25,17 @@ Executable:
 
 ### On the INF0090 cluster
 
-Build with CMake on a CPU node:
-
+Build with CMake on a CPU node, from the lesson directory (`3-cholesky-blas-cmake/`):
 ```bash
-cd 3-cholesky-blas-cmake
 srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --time=5:00 \
-  bash -c 'module load cmake openblas/0.3.29 && \
-    rm -rf build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j'
+  bash -c 'module load cmake openblas/0.3.29 && rm -rf build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j'
 ```
 
 ## Execution
 
+From the build directory (`build/`):
 ```bash
-./build/cholesky_blas 512 64 0
+./cholesky_blas 512 64 0
 ```
 
 - `n` = size of the SPD matrix
@@ -47,12 +43,10 @@ srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --time=5:00 \
 - `seed` = random generator seed
 
 ### On the INF0090 cluster
+From the lesson directory (`3-cholesky-blas-cmake/`):
 ```bash
-cd 3-cholesky-blas-cmake
 srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=4 --time=5:00 \
-  bash -c 'module load openblas/0.3.29 && \
-           export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4} && \
-           ./build/cholesky_blas 512 64 0'
+  bash -c 'module load openblas/0.3.29 && export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4} && ./build/cholesky_blas 512 64 0'
 ```
 
 The program prints a checksum (`diag_sum`) and a `residual_Frob` to validate the factorization.

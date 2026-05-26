@@ -37,21 +37,10 @@ The HIP executable reports:
 You can override the matrix dimension at *runtime* by passing a first positional argument `DIM` to each executable.
 If you do not pass it, the default is compiled `MAT_DIM`.
 
-### Compile (HIP)
+### Compile (all three, from the lesson directory `6-matmul-omp-target-vs-hip/`)
 ```bash
 hipcc -O3 -fopenmp --offload-arch=gfx942 -std=c++17 hip_matmul.cpp -o hip_matmul
-```
-
-### Compile (OpenMP target)
-```bash
-amdclang++ -O3 -fopenmp \
-  -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target -march=gfx942 \
-  -std=c++17 \
-  omp_target_matmul.cpp -o omp_target_matmul
-```
-
-### Compile (rocBLAS)
-```bash
+amdclang++ -O3 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target -march=gfx942 -std=c++17 omp_target_matmul.cpp -o omp_target_matmul
 hipcc -O3 -fopenmp --offload-arch=gfx942 -std=c++17 rocblas_matmul.cpp -lrocblas -o rocblas_matmul
 ```
 
@@ -63,9 +52,10 @@ export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH
 
 ## Run with `srun`
 
+All three commands run from the lesson directory (`6-matmul-omp-target-vs-hip/`):
+
 HIP:
 ```bash
-cd 6-matmul-omp-target-vs-hip
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
             export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./hip_matmul 384'
@@ -73,7 +63,6 @@ srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
 
 OpenMP target:
 ```bash
-cd 6-matmul-omp-target-vs-hip
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
             export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./omp_target_matmul 384'
@@ -81,7 +70,6 @@ srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
 
 rocBLAS:
 ```bash
-cd 6-matmul-omp-target-vs-hip
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:1 \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
             export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; ./rocblas_matmul 384'
@@ -107,22 +95,15 @@ It generates roofline PDFs under:
 If `convert` is available, it also creates a combined PNG.
 
 ### Step-by-step to generate a roofline run
-1) Install rocprof-compute dependencies (on login node):
+1) Install rocprof-compute dependencies on the login node:
 ```bash
 pip3 install --user -r /opt/rocm/libexec/rocprofiler-compute/requirements.txt
 pip3 install --user pytz==2021.1
 ```
 
-2) Go to the lesson directory:
+2) From the lesson directory (`6-matmul-omp-target-vs-hip/`), run the profiling script.
+   It auto-submits to the GPU partition via `srun` — no SSH needed:
 ```bash
-cd 05-openmp-advanced/6-matmul-omp-target-vs-hip
-```
-
-3) Run the script on the GPU node:
-```bash
-ssh info090
-ssh g1
-cd ~/05-openmp-advanced/6-matmul-omp-target-vs-hip
 DIM_ARG=384 ./run_roofline_matmul_openmp_vs_hip.sh roofline_run_384
 ```
 

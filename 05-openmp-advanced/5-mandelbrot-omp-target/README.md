@@ -59,12 +59,13 @@ The program writes `mandelbrot.ppm` in the current directory.
 ## Compilation and Execution on the INF0090 Cluster
 
 ### Using the root Makefile (recommended)
+From the root of the repository:
 ```bash
-cd 05-openmp-advanced
-make 5-mandelbrot-omp-target/solution_mandelbrot
+make -C 05-openmp-advanced 5-mandelbrot-omp-target/solution_mandelbrot
 ```
 
 ### Manual compilation
+From the lesson directory (`5-mandelbrot-omp-target/`):
 ```bash
 amdclang++ -O3 -fopenmp \
   -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target -march=gfx942 \
@@ -73,8 +74,8 @@ amdclang++ -O3 -fopenmp \
 ```
 
 ### Running directly with `srun`
+From the lesson directory (`5-mandelbrot-omp-target/`):
 ```bash
-cd 5-mandelbrot-omp-target
 srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:2 \
   bash -c 'export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH; \
            export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}; \
@@ -82,7 +83,7 @@ srun --partition=gpu --nodes=1 --ntasks=1 --cpus-per-task=8 --gres=gpu:2 \
 ```
 
 ### Running via Batch Script (`sbatch`)
-Create `job.slurm`:
+Create `job.slurm` in the lesson directory (`5-mandelbrot-omp-target/`):
 ```bash
 #!/bin/bash
 #SBATCH --partition=gpu
@@ -92,7 +93,6 @@ Create `job.slurm`:
 #SBATCH --gres=gpu:2
 #SBATCH --time=00:30:00
 
-cd 5-mandelbrot-omp-target
 export LD_LIBRARY_PATH=/opt/rocm/lib/llvm/lib:$LD_LIBRARY_PATH
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}
 ./exercise_mandelbrot

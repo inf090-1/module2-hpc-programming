@@ -80,6 +80,7 @@ int main(int argc, char** argv) {
     const float alpha = 1.0f;
     const float beta  = 0.0f;
 
+    double t_rocblas0 = omp_get_wtime();
     rocblas_status st = rocblas_sgemm(
         handle,
         rocblas_operation_none, rocblas_operation_none,
@@ -96,6 +97,8 @@ int main(int argc, char** argv) {
     }
 
     hipDeviceSynchronize();
+    double t_rocblas1 = omp_get_wtime();
+    double t_rocblas = t_rocblas1 - t_rocblas0;
     hipMemcpy(C.data(), d_C, bytesC, hipMemcpyDeviceToHost);
 
     rocblas_destroy_handle(handle);
@@ -107,6 +110,7 @@ int main(int argc, char** argv) {
     for (int idx = 0; idx < M * N; ++idx) checksum += (double)C[idx];
 
     printf("[rocblas-matmul] MAT_DIM=%d\n", dim);
+    printf("[rocblas-matmul] rocblas_time=%.6f s\n", t_rocblas);
     printf("[rocblas-matmul] checksum=%g\n", checksum);
     if (t_cpu_serial > 0.0) {
         printf("[rocblas-matmul] cpu_serial_time=%.6f s\n", t_cpu_serial);
