@@ -9,7 +9,7 @@ This module moves from using the cluster to programming for it. Day 1 focuses on
 - How to write OpenMP programs with `parallel`, `for`, synchronization, locks, critical sections, scheduling, tasks, and target offload
 - How to write basic HIP programs, use shared memory, and reason about CUDA vs. HIP
 - How to use ROCm libraries, tracing tools, and Roofline-style thinking
-- How to use MPI for collectives, topologies, and GPU-aware communication
+- How to use MPI for basic primitives, collectives, non-blocking communication, and GPU-aware communication
 
 **Lesson Overview**
 
@@ -18,3 +18,4 @@ This module moves from using the cluster to programming for it. Day 1 focuses on
 - [03-basic-gpu-programming](03-basic-gpu-programming/README.md): ROCm/HIP basics, kernels, shared memory, and basic profiling with rocprofv3.
 - [04-advanced-gpu-programming](04-advanced-gpu-programming/README.md): coalescing, MIOpen, attention, tracing, and profiling.
 - [05-openmp-advanced](05-openmp-advanced/README.md): OpenMP tasks, then OpenMP target offload and profiling.
+- [06-mpi](06-mpi/README.md): MPI primitives, collectives, non-blocking communication, and GPU-aware communication.
