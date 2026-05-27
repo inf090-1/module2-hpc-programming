@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(mpi-lessons LANGUAGES C)
 
 set(CMAKE_C_FLAGS "-O3 -Wall")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package(MPI REQUIRED)
 

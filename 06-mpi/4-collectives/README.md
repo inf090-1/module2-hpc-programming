@@ -11,6 +11,9 @@ Use MPI collective operations to communicate efficiently among all processes.
 ## Compilation
 
 ```bash
+module load spack
+module load cmake
+module load openmpi5
 mkdir -p build && cd build
 cmake ..
 make collectives-exercise collectives-solution
@@ -33,23 +36,23 @@ mpicc -O3 -Wall solution.c -o collectives-solution
 Run with exactly 4 processes for comparison:
 
 ```bash
-mpirun -np 4 ./collectives-exercise
-mpirun -np 4 ./collectives-solution --bufsize 10000
+mpirun -np 4 ./bin/collectives-exercise
+mpirun -np 4 ./bin/collectives-solution --bufsize 10000
 ```
 
 Try with different process counts and buffer sizes:
 
 ```bash
-mpirun -np 2 ./collectives-solution --bufsize 1000
-mpirun -np 8 ./collectives-solution --bufsize 1000
+mpirun -np 2 ./bin/collectives-solution --bufsize 1000
+mpirun -np 8 ./bin/collectives-solution --bufsize 1000
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun`:
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./collectives-exercise
-srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./collectives-solution
+srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./bin/collectives-exercise
+srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./bin/collectives-solution
 ```
 
 Via batch script (`job.slurm`):
@@ -60,7 +63,7 @@ Via batch script (`job.slurm`):
 #SBATCH --ntasks=4
 #SBATCH --time=00:05:00
 
-srun ./collectives-solution
+srun ./bin/collectives-solution
 ```
 Submit: `sbatch job.slurm`
 

@@ -1,3 +1,8 @@
+cmake_minimum_required(VERSION 3.20)
+project(lesson-4-collectives LANGUAGES C)
+
+find_package(MPI REQUIRED)
+
 add_executable(collectives-exercise exercise.c)
 target_link_libraries(collectives-exercise MPI::MPI_C)
 

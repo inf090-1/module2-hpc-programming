@@ -11,6 +11,9 @@ A token circulates around a ring of processes. Each process sends to the next an
 ## Compilation
 
 ```bash
+module load spack
+module load cmake
+module load openmpi5
 mkdir -p build && cd build
 cmake ..
 make ring-exercise ring-solution
@@ -31,16 +34,16 @@ mpicc -O3 -Wall solution.c -o ring-solution
 ## Execution
 
 ```bash
-mpirun -np 4 ./ring-exercise
-mpirun -np 4 ./ring-solution --bufsize 10000
+mpirun -np 4 ./bin/ring-exercise
+mpirun -np 4 ./bin/ring-solution --bufsize 10000
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun`:
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./ring-exercise
-srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./ring-solution
+srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./bin/ring-exercise
+srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./bin/ring-solution
 ```
 
 Via batch script (`job.slurm`):
@@ -51,7 +54,7 @@ Via batch script (`job.slurm`):
 #SBATCH --ntasks=4
 #SBATCH --time=00:05:00
 
-srun ./ring-solution
+srun ./bin/ring-solution
 ```
 Submit: `sbatch job.slurm`
 

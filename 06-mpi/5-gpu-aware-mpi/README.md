@@ -22,34 +22,32 @@ Two exercises in this lesson:
 With CMake (requires ROCm):
 
 ```bash
+module load spack
+module load cmake
+module load openmpi5
 mkdir -p build && cd build
-cmake .. -DBUILD_GPU_LESSONS=ON
+cmake .. -DCMAKE_C_COMPILER=hipcc
 make mpi-gpu-solution rccl-gpu-solution
 ```
 
 Or compile manually:
 
 ```bash
-# MPI GPU version (compile on head node or GPU node)
-# First load an MPI module (e.g., openmpi5 which sets MPI_DIR)
 module load openmpi5
-hipcc -D__HIP_PLATFORM_AMD__ \
-    -I${MPI_DIR}/include \
+
+# MPI GPU version
+hipcc -D__HIP_PLATFORM_AMD__ --offload-arch=gfx942 \
+    -I${MPI_DIR}/include -I/opt/rocm/include \
     solution_mpi_gpu.c \
     -L${MPI_DIR}/lib -lmpi -L/opt/rocm/lib -lamdhip64 \
     -o mpi-gpu-solution -O3
 
-# RCCL version — MUST be compiled on the GPU node (g1)
-# ROCm versions differ between head node (7.2.3) and g1 (7.2.0)
-# Use srun to compile on g1:
-srun -p gpu --gres=gpu:1 -n 1 --mpi=pmix bash -c '
-  module load openmpi5
-  hipcc -D__HIP_PLATFORM_AMD__ -O3 \
+# RCCL version
+hipcc -D__HIP_PLATFORM_AMD__ --offload-arch=gfx942 \
     -I${MPI_DIR}/include -I/opt/rocm/include \
     solution_rccl_gpu.c \
     -L${MPI_DIR}/lib -lmpi -L/opt/rocm/lib -lamdhip64 -lrccl \
-    -o rccl-gpu-solution \
-    -Wl,-rpath,/opt/rocm-7.2.0/lib'
+    -o rccl-gpu-solution -O3
 ```
 
 ## Execution
@@ -57,22 +55,22 @@ srun -p gpu --gres=gpu:1 -n 1 --mpi=pmix bash -c '
 ### MPI-GPU version (runs anywhere with ROCm)
 
 ```bash
-srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./mpi-gpu-solution
+srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./build/mpi-gpu-solution
 ```
 
-### RCCL version (requires build on g1)
+### RCCL version
 
 ```bash
-srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./rccl-gpu-solution
+srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./build/rccl-gpu-solution
 ```
 
-### Running on the INF0090 Cluster (GPU partition)
+### Running on the INRF090 Cluster (GPU partition)
 
 Interactive with `srun`:
 
 ```bash
-srun --partition=gpu --gres=gpu:2 --ntasks=2 --mpi=pmix ./mpi-gpu-solution
-srun --partition=gpu --gres=gpu:2 --ntasks=2 --mpi=pmix ./rccl-gpu-solution
+srun --partition=gpu --gres=gpu:2 --ntasks=2 --mpi=pmix ./build/mpi-gpu-solution
+srun --partition=gpu --gres=gpu:2 --ntasks=2 --mpi=pmix ./build/rccl-gpu-solution
 ```
 
 Via batch script (`job.slurm`):
@@ -84,7 +82,7 @@ Via batch script (`job.slurm`):
 #SBATCH --ntasks=2
 #SBATCH --time=00:05:00
 
-srun --mpi=pmix ./mpi-gpu-solution
+srun --mpi=pmix ./build/mpi-gpu-solution
 ```
 
 Submit: `sbatch job.slurm`
@@ -117,5 +115,5 @@ Submit: `sbatch job.slurm`
 
 - The MPI-GPU solution does **not** require RCCL and is the primary exercise.
 - The RCCL version is a bonus to demonstrate direct GPU-to-GPU communication.
-- RCCL must be compiled on the GPU node (g1) because the head node uses ROCm 7.2.3 while g1 uses 7.2.0, causing an ABI mismatch at runtime.
-- When building on g1, use `-Wl,-rpath,/opt/rocm-7.2.0/lib` to ensure the correct runtime library is loaded.
+- Compilation targets `gfx942` (MI300X). Both solutions compile on the head node and run on the GPU partition.
+- Use `/opt/rocm` symlinks for linking — no `-Wl,-rpath` needed.

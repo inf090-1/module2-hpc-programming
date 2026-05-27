@@ -12,6 +12,9 @@ Distributed matrix multiplication using 1D block decomposition. Each process own
 ## Compilation
 
 ```bash
+module load spack
+module load cmake
+module load openmpi5
 mkdir -p build && cd build
 cmake ..
 make matmul-block-exercise matmul-block-solution
@@ -20,6 +23,7 @@ make matmul-block-exercise matmul-block-solution
 Or compile manually:
 
 ```bash
+module load openmpi5
 mpicc -O3 -Wall -fopenmp exercise.c -o matmul-block-exercise -lm
 mpicc -O3 -Wall -fopenmp solution.c -o matmul-block-solution -lm
 ```
@@ -36,13 +40,13 @@ Increase values to see how compute and communication time scale with matrix size
 
 ```bash
 # Single node, multiple processes (default: N=512)
-mpirun -np 4 ./matmul-block-solution
+mpirun -np 4 ./bin/matmul-block-solution
 
 # Larger matrices
-mpirun -np 4 ./matmul-block-solution --N 1024 --K 1024 --M 1024
+mpirun -np 4 ./bin/matmul-block-solution --N 1024 --K 1024 --M 1024
 
 # With explicit process binding
-mpirun -np 4 --map-by socket ./matmul-block-solution
+mpirun -np 4 --map-by socket ./bin/matmul-block-solution
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
@@ -51,11 +55,11 @@ Interactive with `srun` (adjust `--ntasks` and `--cpus-per-task` for OpenMP):
 ```bash
 # 4 MPI processes, 1 OpenMP thread each (fits a 4-core CPU node)
 srun --partition=cpu --nodes=1 --ntasks=4 --cpus-per-task=1 --mpi=pmix \
-  bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}; ./matmul-block-solution'
+  bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}; ./bin/matmul-block-solution'
 
 # Or 2 MPI processes with 2 OpenMP threads each
 srun --partition=cpu --nodes=1 --ntasks=2 --cpus-per-task=2 --mpi=pmix \
-  bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-2}; ./matmul-block-solution'
+  bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-2}; ./bin/matmul-block-solution'
 ```
 
 Via batch script (`job.slurm`):
@@ -68,7 +72,7 @@ Via batch script (`job.slurm`):
 #SBATCH --time=00:05:00
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
-srun ./matmul-block-solution
+srun ./bin/matmul-block-solution
 ```
 Submit: `sbatch job.slurm`
 

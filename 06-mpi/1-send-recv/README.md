@@ -11,6 +11,9 @@ Learn the most basic MPI communication pattern: passing a single piece of data b
 ## Compilation
 
 ```bash
+module load spack
+module load cmake
+module load openmpi5
 mkdir -p build && cd build
 cmake ..
 make send-recv-exercise send-recv-solution
@@ -33,16 +36,16 @@ mpicc -O3 -Wall solution.c -o send-recv-solution
 Run with exactly 2 processes:
 
 ```bash
-mpirun -np 2 ./send-recv-exercise
-mpirun -np 2 ./send-recv-solution --bufsize 10000
+mpirun -np 2 ./bin/send-recv-exercise
+mpirun -np 2 ./bin/send-recv-solution --bufsize 10000
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun`:
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=2 --mpi=pmix ./send-recv-exercise
-srun --partition=cpu --nodes=1 --ntasks=2 --mpi=pmix ./send-recv-solution
+srun --partition=cpu --nodes=1 --ntasks=2 --mpi=pmix ./bin/send-recv-exercise
+srun --partition=cpu --nodes=1 --ntasks=2 --mpi=pmix ./bin/send-recv-solution
 ```
 
 Via batch script (`job.slurm`):
@@ -53,7 +56,7 @@ Via batch script (`job.slurm`):
 #SBATCH --ntasks=2
 #SBATCH --time=00:05:00
 
-srun ./send-recv-exercise
+srun ./bin/send-recv-exercise
 ```
 Submit: `sbatch job.slurm`
 

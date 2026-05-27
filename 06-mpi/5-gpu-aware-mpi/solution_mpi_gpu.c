@@ -1,7 +1,7 @@
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <hip/hip_runtime.h>
+#include <hip/hip_runtime_api.h>
 
 int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);

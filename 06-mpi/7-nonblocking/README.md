@@ -13,6 +13,9 @@ The **exercise** provides a working blocking-MPI stencil; your task is to conver
 ## Compilation
 
 ```bash
+module load spack
+module load cmake
+module load openmpi5
 mkdir -p build && cd build
 cmake ..
 make nonblocking-exercise nonblocking-solution
@@ -39,15 +42,15 @@ The default N=896 gives the best observed speedup (~1.27x on 4 ranks).
 
 ```bash
 # Compare blocking (exercise) vs non-blocking (solution) with default N=512
-mpirun -np 2 ./nonblocking-exercise
-mpirun -np 2 ./nonblocking-solution
+mpirun -np 2 ./bin/nonblocking-exercise
+mpirun -np 2 ./bin/nonblocking-solution
 
 # Try different grid sizes
-mpirun -np 4 ./nonblocking-solution --N 1024 --iter 2048
-mpirun -np 4 ./nonblocking-solution --N 256 --iter 8192
+mpirun -np 4 ./bin/nonblocking-solution --N 1024 --iter 2048
+mpirun -np 4 ./bin/nonblocking-solution --N 256 --iter 8192
 
 # Try with more processes
-mpirun -np 4 ./nonblocking-solution
+mpirun -np 4 ./bin/nonblocking-solution
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
@@ -55,7 +58,7 @@ mpirun -np 4 ./nonblocking-solution
 Interactive with `srun`:
 ```bash
 srun --partition=cpu --nodes=1 --ntasks=4 --cpus-per-task=1 --mpi=pmix \
-  ./nonblocking-solution
+  ./bin/nonblocking-solution
 ```
 
 Via batch script (`job.slurm`):
@@ -67,7 +70,7 @@ Via batch script (`job.slurm`):
 #SBATCH --cpus-per-task=1
 #SBATCH --time=00:05:00
 
-srun ./nonblocking-solution
+srun ./bin/nonblocking-solution
 ```
 Submit: `sbatch job.slurm`
 
