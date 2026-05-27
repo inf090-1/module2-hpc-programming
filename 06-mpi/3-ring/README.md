@@ -34,27 +34,27 @@ mpicc -O3 -Wall solution.c -o ring-solution
 ## Execution
 
 ```bash
-mpirun -np 4 ./bin/ring-exercise
-mpirun -np 4 ./bin/ring-solution --bufsize 10000
+mpirun -np 4 ./build/bin/ring-exercise
+mpirun -np 4 ./build/bin/ring-solution --bufsize 10000
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun`:
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./bin/ring-exercise
-srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./bin/ring-solution
+srun --partition=cpu --nodes=4 --ntasks=4 --mpi=pmix ./build/bin/ring-exercise
+srun --partition=cpu --nodes=4 --ntasks=4 --mpi=pmix ./build/bin/ring-solution
 ```
 
 Via batch script (`job.slurm`):
 ```bash
 #!/bin/bash
 #SBATCH --partition=cpu
-#SBATCH --nodes=1
+#SBATCH --nodes=4
 #SBATCH --ntasks=4
 #SBATCH --time=00:05:00
 
-srun ./bin/ring-solution
+srun --mpi=pmix ./build/bin/ring-solution
 ```
 Submit: `sbatch job.slurm`
 

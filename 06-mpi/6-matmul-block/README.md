@@ -40,39 +40,39 @@ Increase values to see how compute and communication time scale with matrix size
 
 ```bash
 # Single node, multiple processes (default: N=512)
-mpirun -np 4 ./bin/matmul-block-solution
+mpirun -np 4 ./build/bin/matmul-block-solution
 
 # Larger matrices
-mpirun -np 4 ./bin/matmul-block-solution --N 1024 --K 1024 --M 1024
+mpirun -np 4 ./build/bin/matmul-block-solution --N 1024 --K 1024 --M 1024
 
 # With explicit process binding
-mpirun -np 4 --map-by socket ./bin/matmul-block-solution
+mpirun -np 4 --map-by socket ./build/bin/matmul-block-solution
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun` (adjust `--ntasks` and `--cpus-per-task` for OpenMP):
 ```bash
-# 4 MPI processes, 1 OpenMP thread each (fits a 4-core CPU node)
-srun --partition=cpu --nodes=1 --ntasks=4 --cpus-per-task=1 --mpi=pmix \
-  bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}; ./bin/matmul-block-solution'
+# 4 MPI processes across 4 nodes, 1 OpenMP thread each
+srun --partition=cpu --nodes=4 --ntasks=4 --cpus-per-task=1 --mpi=pmix \
+  bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}; ./build/bin/matmul-block-solution'
 
-# Or 2 MPI processes with 2 OpenMP threads each
-srun --partition=cpu --nodes=1 --ntasks=2 --cpus-per-task=2 --mpi=pmix \
-  bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-2}; ./bin/matmul-block-solution'
+# Or 2 MPI processes across 2 nodes with 2 OpenMP threads each
+srun --partition=cpu --nodes=2 --ntasks=2 --cpus-per-task=2 --mpi=pmix \
+  bash -c 'export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-2}; ./build/bin/matmul-block-solution'
 ```
 
 Via batch script (`job.slurm`):
 ```bash
 #!/bin/bash
 #SBATCH --partition=cpu
-#SBATCH --nodes=1
+#SBATCH --nodes=4
 #SBATCH --ntasks=4
 #SBATCH --cpus-per-task=1
 #SBATCH --time=00:05:00
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
-srun ./bin/matmul-block-solution
+srun --mpi=pmix ./build/bin/matmul-block-solution
 ```
 Submit: `sbatch job.slurm`
 

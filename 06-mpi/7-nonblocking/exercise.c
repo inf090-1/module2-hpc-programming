@@ -5,7 +5,7 @@
 #include <math.h>
 
 int main(int argc, char *argv[]) {
-    int N = 896, ITER = 2340;
+    int N = 256, ITER = 8192;
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--N") == 0 && i + 1 < argc) N = atoi(argv[++i]);
         if (strcmp(argv[i], "--iter") == 0 && i + 1 < argc) ITER = atoi(argv[++i]);

@@ -55,13 +55,13 @@ hipcc -D__HIP_PLATFORM_AMD__ --offload-arch=gfx942 \
 ### MPI-GPU version (runs anywhere with ROCm)
 
 ```bash
-srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./build/mpi-gpu-solution
+srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./build/bin/mpi-gpu-solution
 ```
 
 ### RCCL version
 
 ```bash
-srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./build/rccl-gpu-solution
+srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./build/bin/rccl-gpu-solution
 ```
 
 ### Running on the INRF090 Cluster (GPU partition)
@@ -69,8 +69,8 @@ srun -p gpu --gres=gpu:2 -n 2 --mpi=pmix ./build/rccl-gpu-solution
 Interactive with `srun`:
 
 ```bash
-srun --partition=gpu --gres=gpu:2 --ntasks=2 --mpi=pmix ./build/mpi-gpu-solution
-srun --partition=gpu --gres=gpu:2 --ntasks=2 --mpi=pmix ./build/rccl-gpu-solution
+srun --partition=gpu --gres=gpu:2 --ntasks=2 --mpi=pmix ./build/bin/mpi-gpu-solution
+srun --partition=gpu --gres=gpu:2 --ntasks=2 --mpi=pmix ./build/bin/rccl-gpu-solution
 ```
 
 Via batch script (`job.slurm`):
@@ -82,7 +82,7 @@ Via batch script (`job.slurm`):
 #SBATCH --ntasks=2
 #SBATCH --time=00:05:00
 
-srun --mpi=pmix ./build/mpi-gpu-solution
+srun --mpi=pmix ./build/bin/mpi-gpu-solution
 ```
 
 Submit: `sbatch job.slurm`

@@ -30,87 +30,83 @@ mpicc -O3 -Wall solution.c -o nonblocking-solution
 
 ## Parameters
 
-- `--N <n>`: grid rows per dimension (default: 896, must be divisible by `nprocs`)
-- `--iter <n>`: number of Jacobi iterations (default: 2340)
+- `--N <n>`: grid rows per dimension (default: 256, must be divisible by `nprocs`)
+- `--iter <n>`: number of Jacobi iterations (default: 8192)
 
 Change these to see how problem size affects the blocking vs non-blocking speedup.  
-Smaller grids (e.g., N=256) have less compute per halo exchange, reducing the overlap benefit.  
-Larger grids (e.g., N=1024) have more compute per halo exchange, but communication is a smaller fraction of total time.  
-The default N=896 gives the best observed speedup (~1.27x on 4 ranks).
+Smaller grids have a higher communication-to-compute ratio, making overlap more beneficial — especially across nodes where network latency amplifies the gain.  
+Larger grids have more compute per halo exchange, reducing the fraction of time spent in communication.  
+The default N=256 gives the best observed multi-node speedup (~2.14x on 4 nodes).
 
 ## Execution
 
 ```bash
-# Compare blocking (exercise) vs non-blocking (solution) with default N=512
-mpirun -np 2 ./bin/nonblocking-exercise
-mpirun -np 2 ./bin/nonblocking-solution
+# Compare blocking (exercise) vs non-blocking (solution) with default N=256
+mpirun -np 2 ./build/bin/nonblocking-exercise
+mpirun -np 2 ./build/bin/nonblocking-solution
 
-# Try different grid sizes
-mpirun -np 4 ./bin/nonblocking-solution --N 1024 --iter 2048
-mpirun -np 4 ./bin/nonblocking-solution --N 256 --iter 8192
-
-# Try with more processes
-mpirun -np 4 ./bin/nonblocking-solution
+# Try different grid sizes (4 processes across 4 nodes)
+mpirun -np 4 ./build/bin/nonblocking-solution --N 896 --iter 2340
+mpirun -np 4 ./build/bin/nonblocking-solution --N 128 --iter 16384
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun`:
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=4 --cpus-per-task=1 --mpi=pmix \
-  ./bin/nonblocking-solution
+srun --partition=cpu --nodes=4 --ntasks=4 --cpus-per-task=1 --mpi=pmix \
+  ./build/bin/nonblocking-solution
 ```
 
 Via batch script (`job.slurm`):
 ```bash
 #!/bin/bash
 #SBATCH --partition=cpu
-#SBATCH --nodes=1
+#SBATCH --nodes=4
 #SBATCH --ntasks=4
 #SBATCH --cpus-per-task=1
 #SBATCH --time=00:05:00
 
-srun ./bin/nonblocking-solution
+srun --mpi=pmix ./build/bin/nonblocking-solution
 ```
 Submit: `sbatch job.slurm`
 
 ## Expected Output
 
 ```
-[exercise] rank=0 N=896 local_rows=224 time=1.2000s mem=3239936 bytes iters=2340 | PASS
-[exercise] rank=1 N=896 local_rows=224 time=1.2000s mem=3239936 bytes iters=2340 | PASS
+[exercise] rank=0 N=256 local_rows=64 time=2.0000s mem=270336 bytes iters=8192 | PASS
+[exercise] rank=1 N=256 local_rows=64 time=2.0000s mem=270336 bytes iters=8192 | PASS
 ```
 
 The solution prints a timing comparison (exact times vary by system):
 
 ```
 === Non-blocking MPI: Performance Comparison ===
-N=896 ITER=2340 blocking: 1.2131s  non-blocking: 0.9646s  speedup: 1.26x
-[nonblocking] rank=0 N=896 local_rows=224 time=0.9646s mem=3239936 bytes | PASS
+N=256 ITER=8192 blocking: 4.5599s  non-blocking: 2.1353s  speedup: 2.14x
+[nonblocking] rank=0 N=256 local_rows=64 time=2.1353s mem=270336 bytes | PASS
 ```
 
-## Benchmark Results (4 ranks on info090 CPU partition)
+## Benchmark Results (4 nodes, 4 tasks on info090 CPU partition)
 
-| N | ITER | Blocking | Non-blocking | Speedup | Overlap* |
-|---|------|----------|--------------|---------|----------|
-| 128 | 16384 | 0.1412s | 0.1319s | 1.07x | 93.8% |
-| 256 | 8192 | 0.2155s | 0.2070s | 1.04x | 96.9% |
-| 384 | 5461 | 0.2988s | 0.2801s | 1.07x | 97.9% |
-| 512 | 4096 | 0.5218s | 0.4521s | 1.15x | 98.4% |
-| 640 | 3276 | 0.5932s | 0.5354s | 1.11x | 98.8% |
-| 704 | 2978 | 0.7047s | 0.5894s | 1.20x | 98.9% |
-| **768** | 2730 | 0.9058s | 0.7486s | **1.21x** | 99.0% |
-| **896** | 2340 | 1.2336s | 0.9692s | **1.27x** | 99.1% |
-| 1024 | 2048 | 1.7422s | 1.5552s | 1.12x | 99.2% |
-| 1280 | 1638 | 2.6769s | 2.2914s | 1.17x | 99.4% |
-| 1536 | 1365 | 3.7754s | 4.0748s | 0.93x | 99.5% |
-| 2048 | 1024 | 5.8384s | 5.7937s | 1.01x | 99.6% |
+| N | ITER | Blocking | Non-blocking | Speedup |
+|---|------|----------|--------------|---------|
+| **128** | 16384 | 6.4134s | 3.3574s | 1.91x |
+| **256** | 8192 | 4.5599s | 2.1353s | **2.14x** |
+| 384 | 5461 | 4.6354s | 2.6704s | 1.74x |
+| 512 | 4096 | 5.5096s | 3.1067s | 1.77x |
+| 640 | 3276 | 5.4223s | 3.5240s | 1.54x |
+| 704 | 2978 | 5.3663s | 3.8772s | 1.38x |
+| 768 | 2730 | 6.1452s | 4.7822s | 1.29x |
+| 896 | 2340 | 6.5778s | 4.8602s | 1.35x |
+| 1024 | 2048 | 7.7160s | 6.2627s | 1.23x |
+| 1280 | 1638 | 9.1885s | 7.8311s | 1.17x |
+| 1536 | 1365 | 10.2779s | 9.3573s | 1.10x |
+| 2048 | 1024 | 13.4012s | 11.2438s | 1.19x |
 
-\*Overlap = fraction of owned rows that don't need halo data: `(local_rows - 2) / local_rows`.  
-N=896 gives the best speedup (1.27x average, up to 1.32x) because:
-- Interior rows (can be computed during halo exchange) = 222 out of 224 owned rows
-- At smaller N the communication-to-compute ratio is less favorable
-- At larger N the total runtime increases but communication is a smaller fraction
+N=256 gives the best multi-node speedup (2.14x) because:
+- Smaller grids have a higher communication-to-compute ratio
+- Inter-node communication (network) has higher latency than shared memory, so overlap benefits are magnified
+- At larger N, compute dominates and the relative improvement from overlap shrinks
 
 ## Hints
 

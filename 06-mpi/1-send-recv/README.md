@@ -36,27 +36,27 @@ mpicc -O3 -Wall solution.c -o send-recv-solution
 Run with exactly 2 processes:
 
 ```bash
-mpirun -np 2 ./bin/send-recv-exercise
-mpirun -np 2 ./bin/send-recv-solution --bufsize 10000
+mpirun -np 2 ./build/bin/send-recv-exercise
+mpirun -np 2 ./build/bin/send-recv-solution --bufsize 10000
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun`:
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=2 --mpi=pmix ./bin/send-recv-exercise
-srun --partition=cpu --nodes=1 --ntasks=2 --mpi=pmix ./bin/send-recv-solution
+srun --partition=cpu --nodes=2 --ntasks=2 --mpi=pmix ./build/bin/send-recv-exercise
+srun --partition=cpu --nodes=2 --ntasks=2 --mpi=pmix ./build/bin/send-recv-solution
 ```
 
 Via batch script (`job.slurm`):
 ```bash
 #!/bin/bash
 #SBATCH --partition=cpu
-#SBATCH --nodes=1
+#SBATCH --nodes=2
 #SBATCH --ntasks=2
 #SBATCH --time=00:05:00
 
-srun ./bin/send-recv-exercise
+srun --mpi=pmix ./build/bin/send-recv-exercise
 ```
 Submit: `sbatch job.slurm`
 

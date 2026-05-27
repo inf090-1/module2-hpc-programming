@@ -36,27 +36,27 @@ mpicc -O3 -Wall solution.c -o ping-pong-solution
 Run with exactly 2 processes:
 
 ```bash
-mpirun -np 2 ./bin/ping-pong-exercise
-mpirun -np 2 ./bin/ping-pong-solution --bufsize 10000
+mpirun -np 2 ./build/bin/ping-pong-exercise
+mpirun -np 2 ./build/bin/ping-pong-solution --bufsize 10000
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun`:
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=2 --mpi=pmix ./bin/ping-pong-exercise
-srun --partition=cpu --nodes=1 --ntasks=2 --mpi=pmix ./bin/ping-pong-solution
+srun --partition=cpu --nodes=2 --ntasks=2 --mpi=pmix ./build/bin/ping-pong-exercise
+srun --partition=cpu --nodes=2 --ntasks=2 --mpi=pmix ./build/bin/ping-pong-solution
 ```
 
 Via batch script (`job.slurm`):
 ```bash
 #!/bin/bash
 #SBATCH --partition=cpu
-#SBATCH --nodes=1
+#SBATCH --nodes=2
 #SBATCH --ntasks=2
 #SBATCH --time=00:05:00
 
-srun ./bin/ping-pong-solution
+srun --mpi=pmix ./build/bin/ping-pong-solution
 ```
 Submit: `sbatch job.slurm`
 

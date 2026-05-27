@@ -36,34 +36,34 @@ mpicc -O3 -Wall solution.c -o collectives-solution
 Run with exactly 4 processes for comparison:
 
 ```bash
-mpirun -np 4 ./bin/collectives-exercise
-mpirun -np 4 ./bin/collectives-solution --bufsize 10000
+mpirun -np 4 ./build/bin/collectives-exercise
+mpirun -np 4 ./build/bin/collectives-solution --bufsize 10000
 ```
 
 Try with different process counts and buffer sizes:
 
 ```bash
-mpirun -np 2 ./bin/collectives-solution --bufsize 1000
-mpirun -np 8 ./bin/collectives-solution --bufsize 1000
+mpirun -np 2 ./build/bin/collectives-solution --bufsize 1000
+mpirun -np 8 ./build/bin/collectives-solution --bufsize 1000
 ```
 
 ### Running on the INF0090 Cluster (CPU partition)
 
 Interactive with `srun`:
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./bin/collectives-exercise
-srun --partition=cpu --nodes=1 --ntasks=4 --mpi=pmix ./bin/collectives-solution
+srun --partition=cpu --nodes=4 --ntasks=4 --mpi=pmix ./build/bin/collectives-exercise
+srun --partition=cpu --nodes=4 --ntasks=4 --mpi=pmix ./build/bin/collectives-solution
 ```
 
 Via batch script (`job.slurm`):
 ```bash
 #!/bin/bash
 #SBATCH --partition=cpu
-#SBATCH --nodes=1
+#SBATCH --nodes=4
 #SBATCH --ntasks=4
 #SBATCH --time=00:05:00
 
-srun ./bin/collectives-solution
+srun --mpi=pmix ./build/bin/collectives-solution
 ```
 Submit: `sbatch job.slurm`
 
