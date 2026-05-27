@@ -72,3 +72,9 @@ Submit: `sbatch job.slurm`
 - Next rank: `(rank + 1) % size`
 - Previous rank: `(rank - 1 + size) % size`
 - Use tag to distinguish different messages
+
+## Questions
+
+1. How does ring time scale as you increase the number of processes? Is the relationship linear?
+2. What would change if the token traversed the ring in the opposite direction (rank → rank-1)?
+3. Why do we need the `+ size` in `(rank - 1 + size) % size`? What happens without it?

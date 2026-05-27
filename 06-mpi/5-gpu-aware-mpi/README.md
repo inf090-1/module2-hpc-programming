@@ -117,3 +117,9 @@ Submit: `sbatch job.slurm`
 - The RCCL version is a bonus to demonstrate direct GPU-to-GPU communication.
 - Compilation targets `gfx942` (MI300X). Both solutions compile on the head node and run on the GPU partition.
 - Use `/opt/rocm` symlinks for linking — no `-Wl,-rpath` needed.
+
+## Questions
+
+1. Why can MPI operate directly on GPU pointers in GPU-aware MPI? What hardware feature enables this?
+2. How does RCCL differ from MPI when performing an allreduce on GPU data? Which is likely faster and why?
+3. Without GPU-aware MPI, how would you implement the same allreduce using only CPU buffers and explicit GPU copies?

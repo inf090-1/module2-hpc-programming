@@ -83,3 +83,9 @@ Submit: `sbatch job.slurm`
 - `MPI_Allreduce`: all-to-all (all send, all receive)
 - Root is typically rank 0
 - Each process contributes `rank + 1` as its local value
+
+## Questions
+
+1. Which collective has the highest communication cost: `MPI_Bcast`, `MPI_Reduce`, or `MPI_Allreduce`? Why?
+2. How does total time scale with the number of processes for each collective?
+3. What happens if you change the root to a different rank (e.g., rank 2)? Does the result change?

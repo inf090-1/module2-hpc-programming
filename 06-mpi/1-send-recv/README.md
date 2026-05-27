@@ -77,3 +77,9 @@ With `--bufsize 100000`:
 - Rank 0 sends, rank 1 receives
 - Use `MPI_Send(&data, 1, MPI_INT, dest, tag, MPI_COMM_WORLD)`
 - Use `MPI_Recv(&data, 1, MPI_INT, source, tag, MPI_COMM_WORLD, &status)`
+
+## Questions
+
+1. What happens if both ranks call `MPI_Send` before calling `MPI_Recv`? Does the program deadlock or succeed?
+2. How does increasing `--bufsize` affect total communication time? Is the relationship linear? Why?
+3. Swap the roles — make rank 1 send and rank 0 receive. Does the result change? Why or why not?

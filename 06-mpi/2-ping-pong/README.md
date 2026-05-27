@@ -78,3 +78,9 @@ With `--bufsize 100000` (larger messages take longer):
 - After receiving, send the value back
 - Use `MPI_Wtime()` before and after the loop
 - Each full round-trip = 2 messages
+
+## Questions
+
+1. How would you compute one-way latency from the measured round-trip time?
+2. Plot time vs buffer size. At what point does bandwidth dominates over latency?
+3. What happens to the timing if you remove the alternating pattern and both ranks send simultaneously?

@@ -114,3 +114,9 @@ N=256 gives the best multi-node speedup (2.14x) because:
 - Interior rows (2 to `local_rows - 1`) don't need halo data — compute these after posting but before `MPI_Waitall`
 - Boundary rows (1 and `local_rows`) need halo data — compute these after `MPI_Waitall`
 - Use `MPI_PROC_NULL` for ranks outside `[0, size-1]` — sends/recvs with `MPI_PROC_NULL` complete immediately with no effect
+
+## Questions
+
+1. Why does non-blocking communication achieve a higher speedup on multi-node (2.14x at N=256) than on single-node (1.27x at N=896)? What factor changes between these two scenarios?
+2. What would happen if you posted `MPI_Isend` before `MPI_Irecv`? Would the program still produce correct results?
+3. How would the speedup change if you increased the number of processes per node while keeping the total process count constant (e.g., 2 nodes × 2 processes instead of 4 nodes × 1 process)?

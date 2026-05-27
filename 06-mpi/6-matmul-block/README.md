@@ -91,3 +91,9 @@ Submit: `sbatch job.slurm`
 - Compute C_local = A_local × B using `#pragma omp parallel for`
 - Gather all C_local blocks into C on rank 0 (or use Allgather)
 - Verify by comparing against a sequential reference on rank 0
+
+## Questions
+
+1. How does total execution time scale when you double N, K, and M simultaneously? Is the scaling the same for computation and communication?
+2. Why is matrix B broadcast to all processes instead of being distributed in blocks?
+3. How would the communication-to-computation ratio change if you increased only M (columns) vs only N (rows)?
