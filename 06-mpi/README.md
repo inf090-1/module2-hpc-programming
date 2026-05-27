@@ -1,7 +1,5 @@
 # Day 6 — MPI
 
-> **⚠️ GPU Execution Note:** When running on the GPU partition (`srun -p gpu`), use `--mpi=pmix` for correct MPI rank assignment. Without this flag, `srun` launches each process as `rank=0` in its own MPI universe. Example: `srun -p gpu --gres=gpu:N -n N --mpi=pmix ./binary`
-
 This module introduces distributed-memory parallel programming with MPI, from basic point-to-point communication to GPU-aware communication and non-blocking communication.
 
 ## Lessons
