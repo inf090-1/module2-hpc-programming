@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 project(lesson-2-ping-pong LANGUAGES C)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
 find_package(MPI REQUIRED)
 
 add_executable(ping-pong-exercise exercise.c)

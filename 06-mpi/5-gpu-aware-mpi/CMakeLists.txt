@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(lesson-5-gpu-aware-mpi LANGUAGES C)
 
 set(ROCM_PATH "/opt/rocm" CACHE PATH "ROCm installation root")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 find_package(MPI REQUIRED)
 

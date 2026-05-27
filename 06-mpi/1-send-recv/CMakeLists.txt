@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 project(lesson-1-send-recv LANGUAGES C)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
 find_package(MPI REQUIRED)
 
 add_executable(send-recv-exercise exercise.c)
